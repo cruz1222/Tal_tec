@@ -10,10 +10,10 @@ Alumno / Entrenador / Jefatura  →  TalTec_v2.html  →  Apps Script (/exec)  �
 
 | Archivo | Para qué sirve |
 |---|---|
-| `TalTec_v2.html` | La página. Es un solo archivo, sin instalar nada. |
-| `TalTec_Codigo_v2.gs` | El servidor. Se pega en Apps Script dentro de la hoja. |
+| `TalTec.html` | La página. Es un solo archivo, sin instalar nada. |
+| `TalTec_Codigo.gs` | El servidor. Se pega en Apps Script dentro de la hoja. |
 | `TalTec_base_de_datos.xlsx` | Base inicial con los 16 talleres. Se sube a Google Drive. |
-| `logo.png` | (Opcional) Logo de la escuela. Debe estar en la misma carpeta que el HTML. |
+| `logo.png` | Logo de la escuela. Debe estar en la misma carpeta que el HTML. |
 
 ## Qué hace cada rol
 
