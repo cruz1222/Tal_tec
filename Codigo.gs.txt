@@ -1,0 +1,427 @@
+const SALUD = ['Asma', 'Alergia', 'Diabetes', 'Problema del corazón', 'Epilepsia',
+  'Presión alta o baja', 'Lesión en articulaciones', 'Problema de espalda o columna',
+  'Problema de visión o audición'];
+const MALAS = b(putoputaputosputaspendejopendejapendejospendejaschingawvergavergasmierdacabroncabronacabronesidiotaidiotasestupidoestupidaimbeciljotomaricaculeroculerahttphttpswwwgmailhotmailoutlookwhatsappfacebookinstagramtiktok)b;
+
+ ============ Menú y configuración inicial ============
+function onOpen() {
+  SpreadsheetApp.getUi().createMenu('TalTec')
+    .addItem('Configurar hojas (solo la primera vez)', 'configurar')
+    .addItem('Generar NIP a alumnos que no tienen', 'generarNips')
+    .addToUi();
+}
+
+function configurar() {
+  const ss = SpreadsheetApp.getActive();
+  const azul = '#1D3557';
+  const cab = (sh, n) = {
+    const r = sh.getRange(1, 1, 1, n);
+    r.setBackground(azul).setFontColor('#FFFFFF').setFontWeight('bold').setFontFamily('Arial');
+    sh.setFrozenRows(1);
+  };
+  const texto = (sh, col) = sh.getRange(2, col, 4999, 1).setNumberFormat('@');
+
+  if (!ss.getSheetByName('Ajustes')) {
+    const aj = ss.insertSheet('Ajustes');
+    aj.getRange(1, 1, 1, 2).setValues([['Ajuste', 'Valor']]);
+    aj.getRange(2, 1, 6, 2).setValues([
+      ['Clave de jefatura (contraseña)', clave_(8)],
+      ['Fecha de inicio de inscripciones (opcional)', ''],
+      ['Fecha de cierre de inscripciones (opcional)', ''],
+      ['Horas requeridas para la constancia', 50],
+      ['Nombre de la institución', 'ESCRIBE AQUÍ EL NOMBRE DE TU INSTITUCIÓN'],
+      ['Responsable que firma las constancias', 'ESCRIBE AQUÍ EL NOMBRE']
+    ]);
+    cab(aj, 2);
+    aj.setColumnWidth(1, 330); aj.setColumnWidth(2, 360);
+  }
+
+  if (!ss.getSheetByName('Alumnos')) {
+    const al = ss.insertSheet('Alumnos');
+    al.getRange(1, 1, 1, 9).setValues([['Control', 'Nombre', 'Semestre', 'Sexo', 'Teléfono', 'NIP', 'Salud', 'Nota de salud', 'Actualizado']]);
+    cab(al, 9);
+    texto(al, 1); texto(al, 5); texto(al, 6);
+    al.getRange(2, 1, 3, 6).setValues([
+      ['24660001', 'ALUMNO DE PRUEBA UNO (borrar)', 3, 'M', '', '111111'],
+      ['24660002', 'ALUMNO DE PRUEBA DOS (borrar)', 5, 'H', '', '222222'],
+      ['24660003', 'ALUMNO DE PRUEBA TRES (borrar)', 1, 'M', '', '333333']
+    ]);
+    al.getRange(2, 3, 4999, 1).setDataValidation(SpreadsheetApp.newDataValidation().requireNumberBetween(1, 9).setAllowInvalid(false).build());
+    al.getRange(2, 4, 4999, 1).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['H', 'M'], true).setAllowInvalid(false).build());
+    [[1, 14], [2, 34], [3, 10], [4, 8], [5, 14], [6, 10], [7, 40], [8, 40], [9, 16]].forEach(p = al.setColumnWidth(p[0], p[1]  8));
+  }
+
+  if (!ss.getSheetByName('Entrenadores')) {
+    const en = ss.insertSheet('Entrenadores');
+    en.getRange(1, 1, 1, 4).setValues([['Taller_ID', 'Taller', 'Entrenador', 'Clave (contraseña)']]);
+    cab(en, 4);
+    const t = talleres_();
+    if (t.length) {
+      en.getRange(2, 1, t.length, 1).setValues(t.map(x = [x.id]));
+      en.getRange(2, 2, t.length, 1).setFormulas(t.map((x, i) = ['=IFERROR(INDEX(Talleres!BB,MATCH(A' + (i + 2) + ',Talleres!AA,0)),)']));
+      en.getRange(2, 4, t.length, 1).setNumberFormat('@').setValues(t.map(() = [clave_(6)]));
+    }
+    en.setColumnWidth(2, 220); en.setColumnWidth(3, 220); en.setColumnWidth(4, 160);
+  }
+
+  if (!ss.getSheetByName('Constancias')) {
+    const co = ss.insertSheet('Constancias');
+    co.getRange(1, 1, 1, 7).setValues([['Folio', 'Fecha', 'Control', 'Nombre', 'Taller_ID', 'Taller', 'Horas']]);
+    cab(co, 7);
+    texto(co, 1); texto(co, 3);
+    co.setColumnWidth(4, 260); co.setColumnWidth(6, 200);
+  }
+  ss.toast('Listo. Revisa las hojas Ajustes, Alumnos y Entrenadores.', 'TalTec', 8);
+}
+
+function generarNips() {
+  const sh = hoja_('Alumnos');
+  const n = sh.getLastRow() - 1;
+  if (n  1) return;
+  const v = sh.getRange(2, 1, n, 6).getValues();
+  let k = 0;
+  const nips = v.map(r = {
+    if (String(r[0]) !== '' && String(r[5]).trim() === '') { k++; return [String(100000 + Math.floor(Math.random()  900000))]; }
+    return [String(r[5])];
+  });
+  sh.getRange(2, 6, n, 1).setNumberFormat('@').setValues(nips);
+  SpreadsheetApp.getActive().toast('NIP generados ' + k, 'TalTec', 6);
+}
+
+function clave_(n) {
+  return Utilities.getUuid().replace(-g, '').slice(0, n).toUpperCase();
+}
+
+ ============ Entradas web ============
+function doPost(e) {
+  let r;
+  try {
+    const d = JSON.parse(e.postData.contents);
+    r = servidor(d.a, d);
+  } catch (err) {
+    r = { ok false, msg 'Error ' + err.message };
+  }
+  return salida_(r);
+}
+
+function doGet() {
+  return salida_(servidor('estado', {}));
+}
+
+function salida_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function servidor(a, d) {
+  d = d  {};
+  if (a === 'estado') return estado_();
+  const lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    switch (a) {
+      case 'login'      return login_(d);
+      case 'inscribir'  return inscribir_(d);
+      case 'cambiar'    return cambiar_(d);
+      case 'salud'      return guardarSalud_(d);
+      case 'constancia' return constancia_(d);
+      case 'jefa'       return jefa_(d);
+      case 'periodo'    return periodo_(d);
+      case 'ent'        return ent_(d);
+      case 'sesion'     return sesion_(d);
+      default return { ok false, msg 'Acción desconocida' };
+    }
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+ ============ Lectura de hojas ============
+function hoja_(nombre) { return SpreadsheetApp.getActive().getSheetByName(nombre); }
+function ajuste_(fila) { return hoja_('Ajustes').getRange(fila, 2).getValue(); }
+function metaHoras_() { return Number(ajuste_(5))  50; }
+
+function talleres_() {
+  const sh = hoja_('Talleres');
+  const n = sh.getLastRow() - 1;
+  if (n  1) return [];
+  return sh.getRange(2, 1, n, 7).getValues()
+    .filter(r = r[1] !== '')
+    .map(r = ({ id Number(r[0]), n String(r[1]), t String(r[2]), h String(r[3]),
+                 s String(r[4]), c Number(r[5]), m Number(r[6]) }));
+}
+
+function inscRaw_() {
+  const sh = hoja_('Inscripciones');
+  const n = sh.getLastRow() - 1;
+  return n  1  []  sh.getRange(2, 1, n, 7).getValues();
+}
+function inscV_() { return inscRaw_().filter(r = String(r[0]) !== ''); }
+
+function abierto_() {
+  if (String(hoja_('Config').getRange(2, 2).getValue()).toUpperCase() !== 'SI') return false;
+  const hoy = new Date();
+  const ini = hoja_('Ajustes').getRange(3, 2).getValue();
+  const fin = hoja_('Ajustes').getRange(4, 2).getValue();
+  if (ini instanceof Date && hoy  ini) return false;
+  if (fin instanceof Date) { const f = new Date(fin); f.setHours(23, 59, 59, 999); if (hoy  f) return false; }
+  return true;
+}
+
+function estado_() {
+  const cnt = {};
+  inscV_().forEach(r = { const t = Number(r[5]); cnt[t] = (cnt[t]  0) + 1; });
+  const tal = talleres_().map(t = Object.assign(t, { ins cnt[t.id]  0 }));
+  return { ok true, talleres tal, abierto abierto_(), meta metaHoras_(), inst String(ajuste_(6)  '') };
+}
+
+ ============ Seguridad ============
+function bloqueado_(k) { return Number(CacheService.getScriptCache().get('f' + k)  0) = 5; }
+function falla_(k) {
+  const c = CacheService.getScriptCache();
+  c.put('f' + k, String(Number(c.get('f' + k)  0) + 1), 600);
+}
+function limpia_(k) { CacheService.getScriptCache().remove('f' + k); }
+const BLOQ = 'Demasiados intentos. Espera 10 minutos.';
+
+function jefaOk_(clave) {
+  const k = 'jefa';
+  if (bloqueado_(k)) return BLOQ;
+  const real = String(ajuste_(2)  '').trim();
+  if (!real) return 'Falta definir la clave de jefatura en la hoja Ajustes.';
+  if (String(clave  '').trim() === real) { limpia_(k); return ''; }
+  falla_(k);
+  return 'Contraseña incorrecta.';
+}
+
+function entOk_(t, clave) {
+  const k = 'ent' + t;
+  if (bloqueado_(k)) return BLOQ;
+  clave = String(clave  '').trim();
+  const fila = hoja_('Entrenadores').getDataRange().getValues().slice(1).find(r = Number(r[0]) === Number(t));
+  const real = fila  String(fila[3]).trim()  '';
+  const jefa = String(ajuste_(2)  '').trim();
+  if (clave && ((real && clave === real)  (jefa && clave === jefa))) { limpia_(k); return ''; }
+  falla_(k);
+  return 'Contraseña incorrecta.';
+}
+
+ Valida control + NIP contra el padrón. Devuelve {err} o {fila, r}
+function alumno_(c, nip) {
+  c = String(c  '').trim();
+  const k = 'al' + c;
+  if (bloqueado_(k)) return { err BLOQ };
+  const sh = hoja_('Alumnos');
+  const n = sh.getLastRow() - 1;
+  if (n = 1 && ^d{8}$.test(c)) {
+    const v = sh.getRange(2, 1, n, 9).getValues();
+    for (let i = 0; i  n; i++) {
+      if (String(v[i][0]).trim() === c) {
+        const real = String(v[i][5]).trim();
+        if (real !== '' && real === String(nip  '').trim()) { limpia_(k); return { fila i + 2, r v[i] }; }
+        break;
+      }
+    }
+  }
+  falla_(k);
+  return { err 'Número de control o NIP incorrecto. Si no tienes NIP, pídelo en Extraescolares.' };
+}
+
+ ============ Salud ============
+function parseSalud_(s) {
+  return String(s  '').split(',').map(x = x.trim()).filter(x = SALUD.indexOf(x) = 0);
+}
+
+function notaError_(s) {
+  s = String(s  '').trim();
+  if (!s) return '';
+  if (s.length  80) return 'El detalle puede tener máximo 80 letras.';
+  if (!^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñs,.;()-]$.test(s)) return 'Usa solo letras sin números, correos ni enlaces.';
+  const n = s.normalize('NFD').replace([u0300-u036f]g, '').toLowerCase();
+  if (MALAS.test(n)) return 'Escribe solo información de salud, con respeto.';
+  return '';
+}
+
+function saludValida_(d) {
+  const lista = Array.isArray(d.salud)  d.salud  [];
+  const salud = [];
+  for (const s of lista) {
+    if (SALUD.indexOf(s)  0) return { err 'Opción de salud no válida.' };
+    if (salud.indexOf(s)  0) salud.push(s);
+  }
+  if (!salud.length) return { salud [], nota '' };
+  if (!d.aut) return { err 'Falta la autorización para guardar tu información de salud.' };
+  const nota = String(d.nota  '').trim();
+  const m = notaError_(nota);
+  if (m) return { err m };
+  return { salud salud, nota nota };
+}
+
+function saludMap_() {
+  const sh = hoja_('Alumnos');
+  const n = sh.getLastRow() - 1;
+  const m = {};
+  if (n  1) return m;
+  sh.getRange(2, 1, n, 8).getValues().forEach(r = {
+    m[String(r[0]).trim()] = { salud parseSalud_(r[6]), nota String(r[7]  '') };
+  });
+  return m;
+}
+
+ ============ Perfil ============
+function perfil_(r) {
+  return { c String(r[0]), n String(r[1]), sem r[2] === ''  ''  Number(r[2]), x String(r[3]  ''),
+           tel String(r[4]  ''), salud parseSalud_(r[6]), nota String(r[7]  '') };
+}
+function mis_(c) {
+  return inscV_().filter(r = String(r[0]).trim() === c).map(r = ({ t Number(r[5]), h Number(r[6])  0 }));
+}
+function guardaPerfil_(fila, o) {
+  const sh = hoja_('Alumnos');
+  sh.getRange(fila, 3, 1, 3).setValues([[o.sem, o.x, o.tel]]);
+  sh.getRange(fila, 7, 1, 3).setValues([[o.salud.join(', '), o.nota, new Date()]]);
+  return perfil_(sh.getRange(fila, 1, 1, 9).getValues()[0]);
+}
+function fechaLarga_(d) {
+  d = d  new Date();
+  const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const tz = SpreadsheetApp.getActive().getSpreadsheetTimeZone();
+  return Utilities.formatDate(d, tz, 'd') + ' de ' + meses[Number(Utilities.formatDate(d, tz, 'M')) - 1] + ' de ' + Utilities.formatDate(d, tz, 'yyyy');
+}
+
+ ============ Acciones del alumno ============
+function login_(d) {
+  const a = alumno_(d.c, d.nip);
+  if (a.err) return { ok false, msg a.err };
+  return { ok true, perfil perfil_(a.r), mis mis_(String(d.c).trim()) };
+}
+
+function inscribir_(d) {
+  const a = alumno_(d.c, d.nip);
+  if (a.err) return { ok false, msg a.err };
+  if (!abierto_()) return { ok false, msg 'Las inscripciones están cerradas.' };
+  const c = String(d.c).trim();
+  const p = a.r;
+  const tel = String(d.tel  '');
+  if (!^d{10}$.test(tel)) return { ok false, msg 'Teléfono no válido.' };
+  const sem = p[2] !== ''  Number(p[2])  Number(d.sem);
+  if (!(sem = 1 && sem = 9)) return { ok false, msg 'Semestre no válido.' };
+  const x = String(p[3]  d.x  '');
+  if (x !== 'H' && x !== 'M') return { ok false, msg 'Sexo no válido.' };
+  const sv = saludValida_(d);
+  if (sv.err) return { ok false, msg sv.err };
+
+  const T = talleres_().find(t = t.id === Number(d.t));
+  if (!T) return { ok false, msg 'Taller no encontrado.' };
+  const v = inscV_();
+  if (v.some(r = String(r[0]).trim() === c && Number(r[5]) === T.id)) return { ok false, msg 'Ya estás inscrito en este taller.' };
+  if (v.filter(r = Number(r[5]) === T.id).length = T.c) return { ok false, msg 'El taller ya está lleno.' };
+
+  const sh = hoja_('Inscripciones');
+  sh.getRange(sh.getLastRow() + 1, 1, 1, 7).setValues([[c, String(p[1]), sem, x, tel, T.id, 0]]);
+  const perfil = guardaPerfil_(a.fila, { sem sem, x x, tel tel, salud sv.salud, nota sv.nota });
+  return { ok true, fecha fechaLarga_(), perfil perfil, mis mis_(c) };
+}
+
+function cambiar_(d) {
+  const a = alumno_(d.c, d.nip);
+  if (a.err) return { ok false, msg a.err };
+  if (!abierto_()) return { ok false, msg 'El periodo de cambios está cerrado.' };
+  const c = String(d.c).trim();
+  const v = inscRaw_();
+  const i = v.findIndex(r = String(r[0]).trim() === c && Number(r[5]) === Number(d.t0));
+  if (i  0) return { ok false, msg 'No se encontró la inscripción.' };
+  if (v.some(r = String(r[0]).trim() === c && Number(r[5]) === Number(d.t))) return { ok false, msg 'Ya estás inscrito en ese taller.' };
+  const T = talleres_().find(t = t.id === Number(d.t));
+  if (!T) return { ok false, msg 'Taller no encontrado.' };
+  if (v.filter(r = String(r[0]) !== '' && Number(r[5]) === T.id).length = T.c) return { ok false, msg 'El taller nuevo ya está lleno.' };
+  hoja_('Inscripciones').getRange(i + 2, 6).setValue(T.id);
+  return { ok true, fecha fechaLarga_(), mis mis_(c) };
+}
+
+function guardarSalud_(d) {
+  const a = alumno_(d.c, d.nip);
+  if (a.err) return { ok false, msg a.err };
+  const tel = String(d.tel  '');
+  if (!^d{10}$.test(tel)) return { ok false, msg 'Teléfono no válido.' };
+  const sv = saludValida_(d);
+  if (sv.err) return { ok false, msg sv.err };
+  const p = a.r;
+  const perfil = guardaPerfil_(a.fila, { sem p[2], x p[3], tel tel, salud sv.salud, nota sv.nota });
+  return { ok true, perfil perfil };
+}
+
+function constancia_(d) {
+  const a = alumno_(d.c, d.nip);
+  if (a.err) return { ok false, msg a.err };
+  const c = String(d.c).trim();
+  const t = Number(d.t);
+  const fila = inscV_().find(r = String(r[0]).trim() === c && Number(r[5]) === t);
+  if (!fila) return { ok false, msg 'No estás inscrito en ese taller.' };
+  const meta = metaHoras_();
+  const h = Number(fila[6])  0;
+  if (h  meta) return { ok false, msg 'Aún no completas las ' + meta + ' horas.' };
+  const T = talleres_().find(x = x.id === t);
+  const sh = hoja_('Constancias');
+  const n = Math.max(0, sh.getLastRow() - 1);
+  let folio = '', fecha = '';
+  if (n = 1) {
+    const f = sh.getRange(2, 1, n, 7).getValues().find(r = String(r[2]).trim() === c && Number(r[4]) === t);
+    if (f) { folio = String(f[0]); fecha = fechaLarga_(f[1] instanceof Date  f[1]  new Date()); }
+  }
+  if (!folio) {
+    const ahora = new Date();
+    folio = 'TT-' + ahora.getFullYear() + '-' + String(n + 1).padStart(4, '0');
+    sh.getRange(sh.getLastRow() + 1, 1, 1, 7).setValues([[folio, ahora, c, String(a.r[1]), t, T  T.n  '', h]]);
+    fecha = fechaLarga_(ahora);
+  }
+  return { ok true, folio folio, fecha fecha, c c, nombre String(a.r[1]), taller T  T.n  '', tipo T  T.t  '',
+           horas h, meta meta, inst String(ajuste_(6)  ''), resp String(ajuste_(7)  '') };
+}
+
+ ============ Jefatura y entrenadores ============
+function jefa_(d) {
+  const m = jefaOk_(d.clave);
+  if (m) return { ok false, msg m };
+  const sm = saludMap_();
+  const insc = inscV_().map(r = {
+    const s = sm[String(r[0]).trim()]  { salud [], nota '' };
+    return { c String(r[0]), n String(r[1]), sem Number(r[2]), x String(r[3]), tel String(r[4]),
+             t Number(r[5]), h Number(r[6])  0, salud s.salud, nota s.nota };
+  });
+  return { ok true, insc insc };
+}
+
+function periodo_(d) {
+  const m = jefaOk_(d.clave);
+  if (m) return { ok false, msg m };
+  hoja_('Config').getRange(2, 2).setValue(d.abierto  'SI'  'NO');
+  return { ok true };
+}
+
+function ent_(d) {
+  const m = entOk_(d.t, d.clave);
+  if (m) return { ok false, msg m };
+  const sm = saludMap_();
+  const insc = inscV_().filter(r = Number(r[5]) === Number(d.t)).map(r = {
+    const s = sm[String(r[0]).trim()]  { salud [], nota '' };
+    return { c String(r[0]), n String(r[1]), tel String(r[4]), h Number(r[6])  0, salud s.salud, nota s.nota };
+  });
+  return { ok true, insc insc };
+}
+
+function sesion_(d) {
+  const m = entOk_(d.t, d.clave);
+  if (m) return { ok false, msg m };
+  const sh = hoja_('Inscripciones');
+  const n = sh.getLastRow() - 1;
+  if (n  1) return { ok true };
+  const v = sh.getRange(2, 1, n, 7).getValues();
+  const set = {};
+  (d.controles  []).forEach(c = { set[String(c).trim()] = true; });
+  const horas = Number(d.horas)  0;
+  v.forEach(r = {
+    if (Number(r[5]) === Number(d.t) && set[String(r[0]).trim()]) r[6] = (Number(r[6])  0) + horas;
+  });
+  sh.getRange(2, 7, n, 1).setValues(v.map(r = [r[6]]));
+  return { ok true };
+}
