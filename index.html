@@ -3,307 +3,261 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TECN MATEHUALA · Inscripción a talleres</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<title>TECN MATEHUALA · Talleres</title>
 <style>
-:root{--bg:#F1FAEE;--card:#fff;--txt:#1B1B2F;--mut:#5B6475;--pri:#1D3557;--onpri:#fff;--acc:#2EC4B6;--ok:#17857B;--warn:#8A4B08;--bad:#B42318;--line:#CFE3DD;--chip:#E3F4F0;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0F1726;--card:#172236;--txt:#E8EEF7;--mut:#A8B3C7;--pri:#2EC4B6;--onpri:#0B1220;--ok:#5FD8CB;--warn:#F0B35E;--bad:#FF8A80;--line:#2B3A55;--chip:#1E3048}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0F1726;--card:#172236;--txt:#E8EEF7;--mut:#A8B3C7;--pri:#2EC4B6;--onpri:#0B1220;--ok:#5FD8CB;--warn:#F0B35E;--bad:#FF8A80;--line:#2B3A55;--chip:#1E3048}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--bg:#F1FAEE;--card:#fff;--txt:#1B1B2F;--mut:#5B6475;--pri:#1D3557;--on:#fff;--acc:#2EC4B6;--ok:#17857B;--warn:#8A4B08;--bad:#B42318;--line:#CFE3DD;--chip:#E3F4F0;padding-top:env(safe-area-inset-top,0)}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#0F1726;--card:#172236;--txt:#E8EEF7;--mut:#A8B3C7;--pri:#2EC4B6;--on:#0B1220;--ok:#5FD8CB;--warn:#F0B35E;--bad:#FF8A80;--line:#2B3A55;--chip:#1E3048}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 Poppins,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
-header{background:var(--pri);color:var(--onpri);padding:12px 16px}
-.top{max-width:980px;margin:auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:10px}.brand img{height:46px;width:auto;max-width:120px;object-fit:contain;background:#fff;border-radius:8px;padding:3px}
-.logo{font-weight:600;font-size:18px}.logo small{display:block;font-weight:400;font-size:11px;opacity:.85}
-nav{display:flex;gap:6px}
-nav button{border:1px solid currentColor;background:transparent;color:inherit;padding:6px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
-nav button[aria-pressed=true]{background:var(--onpri);color:var(--pri)}
-main{max-width:980px;margin:auto;padding:16px}
-.note{font-size:12px;color:var(--mut);margin:0 0 12px}
-h2{font-size:18px;margin:4px 0 12px}h3{font-size:15px;margin:16px 0 8px}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+header{background:var(--pri);color:var(--on);padding:12px 16px}
+.top,main{max-width:980px;margin:auto}.top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.top img{height:42px;background:#fff;border-radius:8px;padding:3px;margin-right:6px}
+main{padding:16px}h2{font-size:18px;margin:4px 0 12px}h3{font-size:15px;margin:16px 0 8px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
-.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
-.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.chip{border:1px solid var(--line);background:var(--chip);color:var(--txt);padding:5px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
-.btn{background:var(--pri);color:var(--onpri);border:0;padding:9px 16px;border-radius:10px;font:inherit;font-weight:500;cursor:pointer;min-height:40px}
-.btn.sec{background:transparent;color:var(--pri);border:1px solid var(--pri)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.between{justify-content:space-between}
+.mut{color:var(--mut);font-size:13px}.err{color:var(--bad);font-size:13px}
+.btn,.chip{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--pri);min-height:38px;padding:7px 14px;background:var(--pri);color:var(--on)}
+.btn.sec,.chip{background:transparent;color:var(--pri)}.chip{border-radius:999px;min-height:32px;padding:3px 12px;font-size:13px}
+.chip[aria-pressed=true]{background:var(--pri);color:var(--on)}.btn:disabled{opacity:.45;cursor:not-allowed}
+label{display:block;font-size:13px;font-weight:600;margin-top:10px}
+input,select{width:100%;min-height:40px;padding:8px 10px;margin-top:3px;border:1px solid var(--mut);border-radius:8px;font:inherit;background:var(--card);color:var(--txt)}
+input[type=checkbox]{width:22px;min-height:22px}#role{width:auto;border-radius:999px}
 .bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:var(--acc)}
-.tag{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;font-weight:500;background:var(--chip);color:var(--ok)}
-.tag.lleno{color:var(--bad)}.tag.espera{color:var(--warn)}
-label{display:block;font-size:13px;font-weight:500;margin:10px 0 3px}
-label.chk{display:flex;gap:8px;align-items:center;font-weight:400;font-size:14px;margin:6px 0}
-input,select{width:100%;padding:9px 10px;border:1px solid var(--mut);border-radius:8px;font:inherit;background:var(--card);color:var(--txt);min-height:40px}
-.chk input{width:20px;min-height:20px;flex:none}
-input:disabled{opacity:.55}
-.err{color:var(--bad);font-size:12.5px;margin-top:3px}
-.warn{background:var(--chip);border-left:4px solid var(--warn);padding:8px 12px;border-radius:6px;margin:10px 0;font-size:13.5px}
-.ok{background:var(--chip);border-left:4px solid var(--ok);padding:10px 12px;border-radius:6px;font-weight:500}
-.mut{color:var(--mut);font-size:13px}
-.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13.5px}
-th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:nowrap}th{font-weight:600}
-.toast{display:none;position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pri);color:var(--onpri);padding:10px 16px;border-radius:10px;z-index:9;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.card{transition:box-shadow .15s}.card:hover{box-shadow:0 2px 10px rgba(29,53,87,.15)}.bar i{transition:width .4s}
-.doc{background:#fff;color:#111;border:2px solid #1D3557;border-radius:6px;padding:28px 24px;margin:12px 0;font-family:Georgia,"Times New Roman",serif;line-height:1.6}
-.doc h2{text-align:center;font-size:20px;margin:0 0 2px;letter-spacing:.5px}
-.doc .sub{text-align:center;font-size:13px;color:#444;margin-bottom:14px}
-.doc .big{text-align:center;font-size:22px;font-weight:700;margin:12px 0}
-.doc p{margin:8px 0}.doc .dlogo{height:64px;width:auto;max-width:200px;object-fit:contain}.doc .logos-document{display:flex;justify-content:center;align-items:center;gap:12px;margin:0 auto 8px}
-.doc .fm{margin-top:46px;text-align:center}.doc .fm hr{width:60%;border:0;border-top:1px solid #111;margin:0 auto 4px}
-.doc .pie{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:12px;color:#444;margin-top:26px}
-@media print{header,.noprint,.toast{display:none!important}body{background:#fff}main{padding:0}.doc{margin:0;border:2px solid #000}}
+.tag{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:var(--chip);color:var(--ok)}.tag.lleno{color:var(--bad)}.tag.espera{color:var(--warn)}
+.note{background:var(--chip);border-left:4px solid var(--ok);padding:8px 12px;border-radius:6px;margin:10px 0}.note.bad{border-color:var(--bad)}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13.5px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:nowrap}
+dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:8px 0 0;font-size:13.5px}dt{color:var(--mut)}dd{margin:0}
+.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:var(--pri);color:var(--on);padding:10px 16px;border-radius:10px;z-index:9}
+.doc{background:#fff;color:#111;border:2px solid #1D3557;border-radius:6px;padding:26px 22px;margin:12px 0;font-family:Georgia,serif;text-align:center}
+.doc .big{font-size:22px;font-weight:700;margin:10px 0}.doc p{margin:8px 0}.doc .sign{margin:44px auto 0;width:60%;border-top:1px solid #111;padding-top:4px}.doc small{display:block;margin-top:22px;color:#444}
+@media print{header,.noprint,.toast{display:none!important}body{background:#fff}.doc{margin:0}}
 </style>
 </head>
 <body>
 <header><div class="top">
-<div class="brand"><img src="logo-tec.png.jfif" alt="ITMH" onerror="this.style.display='none'"><img src="logo-tecnm.png" alt="TECNM" onerror="this.style.display='none'"><div class="logo"> TECN MATEHUALA <small>Del papel al clic: talleres al alcance de todos.</small></div></div>
-<nav aria-label="Rol"><button data-role="alumno">Alumno</button><button data-role="jefatura">Jefatura</button><button data-role="entrenador">Entrenador</button></nav>
-<div id="modo" style="width:100%;font-size:11px;opacity:.9"></div>
+<div class="row"><img src="logo-tec.png.jfif" alt="" onerror="this.remove()"><img src="logo-tecnm.png" alt="" onerror="this.remove()"><b>TECN MATEHUALA</b></div>
+<select id="role" data-s="role" aria-label="Rol"><option value="alumno">Alumno</option><option value="jefatura">Jefatura</option><option value="entrenador">Entrenador</option><option value="medicina">Medicina</option></select>
 </div></header>
 <main id="app"></main>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbyPiKyljZWYCyscnDJj0OzdG244rW-Ggh8N7ov6HV4jatS5ndXUbsJlTGhp5F6EusLYPg/exec";
-const SALUD=["Asma","Alergia","Diabetes","Problema del corazón","Epilepsia","Presión alta o baja","Lesión en articulaciones","Problema de espalda o columna","Problema de visión o audición"];
-const MALAS=/\b(puto|puta|putos|putas|pendejo|pendeja|pendejos|pendejas|chinga\w*|verga|vergas|mierda|cabron|cabrona|cabrones|idiota|idiotas|estupido|estupida|imbecil|joto|marica|culero|culera|http|https|www|gmail|hotmail|outlook|whatsapp|facebook|instagram|tiktok)\b/;
+/* ===== 1. CONFIGURACIÓN ===== API: dirección del Apps Script (la hoja es la base de datos). */
+const API="https://script.google.com/macros/s/AKfycbyPiKyljZWYCyscnDJj0OzdG244rW-Ggh8N7ov6HV4jatS5ndXUbsJlTGhp5F6EusLYPg/exec";
 const SLOTS={"":"Ninguno","LM":"Lun y Mié por la tarde","MJ":"Mar y Jue por la tarde","V":"Viernes por la tarde","AM":"Mañanas"};
-let T=[],A=null,J=null,Z=null;
-const S={role:"alumno",tipo:"Todos",busy:"",open:true,meta:50,inst:"",view:"cat",pick:null,after:"cat",errs:{},f:{},done:null,doc:null,q:"",ord:"n",jt:"",js:"",jm:"",jc:"",et:null,chk:{},hrs:"1",lst:false,wait:false,ready:false,fail:false};
+const TYPES=["Todos","Deportivo","Cívico","Cultural"];
+// STAFF: roles con contraseña; comparten pantalla de entrada, cambia solo la acción de la hoja.
+const STAFF={jefatura:{act:"jefa",title:"Panel de la jefatura",label:"Contraseña de jefatura"},
+ entrenador:{act:"ent",title:"Mi taller (entrenador)",label:"Contraseña del taller"},
+ medicina:{act:"med",title:"Expediente médico",label:"Contraseña de medicina"}};
+
+/* ===== 2. ESTADO ===== */
+let W=[];       // talleres
+let me=null;    // alumno con sesión: {c, nip, p: perfil, mis: inscripciones}
+const staff={}; // sesión de cada rol de personal: {clave, t, data}
+const S={role:"alumno",view:"catalog",type:"Todos",slot:"",q:"",sq:"",wf:"",open:true,goal:50,school:"",
+ pick:null,after:"catalog",err:{},f:{hrs:"1"},att:{},done:null,cert:null,expMsg:null,ready:false,fail:false,wait:false};
+
+/* ===== 3. UTILIDADES ===== */
 const $=s=>document.querySelector(s);
-const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-const tl=id=>T.find(t=>t.id===id);
-const est=t=>{const n=t.ins;return n>=t.c?["lleno","Lleno"]:n<t.m?["espera","En espera: pocos inscritos"]:["abierto","Abierto"]};
-const sal=e=>e.salud.length?esc(e.salud.join(", "))+(e.nota?" ("+esc(e.nota)+")":""):"—";
+const esc=v=>String(v==null?"":v).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shop=id=>W.find(w=>w.id===id)||{n:"(taller)",h:"",t:""};
+const card=h=>`<div class="card">${h}</div>`;
+const pct=(a,b)=>Math.min(100,a/b*100);
+const phoneOk=t=>/^\d{10}$/.test(t||"");
+function status(w){switch(true){case w.ins>=w.c:return["lleno","Lleno"];case w.ins<w.m:return["espera","En espera: pocos inscritos"];default:return["abierto","Abierto"]}}
+function medLine(e){if(!e.med)return"—";const m=e.med,x=[m.cond,m.alergias&&"Alergia: "+m.alergias,m.meds&&"Med.: "+m.meds].filter(v=>v&&!/^ninguna?$/i.test(v));return esc(m.folio)+" · "+esc(x.join("; ")||"Sin condiciones")}
+// fld: campo de texto; data-f guarda lo escrito en S.f[k].
+const fld=(k,lb,type="text",hint="",ac="")=>`<label>${lb}<input data-f="${k}" type="${type}" placeholder="${hint}" value="${esc(S.f[k]||"")}"${ac?` autocomplete="${ac}"`:""}></label>${S.err[k]?`<div class="err">${esc(S.err[k])}</div>`:""}`;
+function toast(m,keep){let t=$(".toast");if(!t){t=document.createElement("div");t.className="toast";document.body.appendChild(t)}t.textContent=m;t.hidden=false;clearTimeout(t.h);if(!keep)t.h=setTimeout(()=>t.hidden=true,2600)}
+const hideToast=()=>{const t=$(".toast");if(t)t.hidden=true};
 
-function api(a,d){const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),30000);
- return fetch(API_URL,{method:"POST",signal:ac.signal,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(Object.assign({a},d||{}))}).then(r=>r.json()).catch(e=>({ok:false,msg:e&&e.name==="AbortError"?"La hoja tardó más de 30 segundos en responder. Intenta de nuevo.":"Sin conexión con la hoja. Revisa tu internet y que la implementación esté en acceso Cualquiera."})).finally(()=>clearTimeout(tm))}
+/* ===== 4. API: una sola función para hablar con la hoja ===== */
+async function call(a,d,msg){
+ if(msg){S.wait=true;toast(msg+"…",true)}
+ const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),30000);
+ try{const r=await fetch(API,{method:"POST",signal:ctl.signal,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({a,...d})});return await r.json()}
+ catch(e){return{ok:false,msg:e.name==="AbortError"?"La hoja tardó demasiado. Intenta de nuevo.":"Sin conexión con la hoja."}}
+ finally{clearTimeout(timer);if(msg){S.wait=false;hideToast()}}}
+async function pullStaff(role){const s=staff[role];if(!s)return;
+ const r=await call(STAFF[role].act,{clave:s.clave,t:s.t});if(r.ok)s.data=r.insc||r.regs}
 async function load(){
- const r=await api("estado");
- if(!r.ok){S.fail=true;if(!S.ready)draw();return}
- S.fail=false;S.ready=true;T=r.talleres;S.open=r.abierto;S.meta=r.meta||50;S.inst=r.inst||"";
- if(S.role==="jefatura"&&J){const j=await api("jefa",{clave:J.clave});if(j.ok)J.insc=j.insc}
- if(S.role==="entrenador"&&Z){const z=await api("ent",{t:Z.t,clave:Z.clave});if(z.ok)Z.insc=z.insc}
- const ae=document.activeElement;if(!ae||!["INPUT","SELECT"].includes(ae.tagName))draw();
-}
-function toast(m,keep){let t=$("#toast");if(!t){t=document.createElement("div");t.id="toast";t.className="toast";t.setAttribute("role","status");document.body.appendChild(t)}t.textContent=m;t.style.display="block";clearTimeout(t._h);if(!keep)t._h=setTimeout(()=>t.style.display="none",2600)}
-function wait(m){S.wait=true;toast(m+" (puede tardar unos segundos)",true)}
-function idle(){S.wait=false;const t=$("#toast");if(t){clearTimeout(t._h);t.style.display="none"}}
+ const r=await call("estado");
+ if(!r.ok){S.fail=true;return S.ready||draw()}
+ Object.assign(S,{fail:false,ready:true,open:r.abierto,goal:r.meta||50,school:r.inst||""});W=r.talleres;
+ await pullStaff(S.role);
+ if(!["INPUT","SELECT"].includes(document.activeElement.tagName))draw()}
 
-const fl=(id,lb,ty="text",ph="",ac="")=>{const e=S.errs[id];return `<label for="${id}">${lb}</label><input id="${id}" type="${ty}" placeholder="${ph}" value="${esc(S.f[id]||"")}" inputmode="${ty==="tel"||ph.includes("dígitos")?"numeric":"text"}"${ac?` autocomplete="${ac}"`:""}>${e?`<div class="err">${esc(e)}</div>`:""}`};
-function notaMsg(s){s=(s||"").trim();if(!s)return "";if(s.length>80)return "El detalle puede tener máximo 80 letras.";
- if(!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s,.;:()\-]*$/.test(s))return "Usa solo letras: sin números, correos ni enlaces.";
- if(MALAS.test(s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()))return "Escribe solo información de salud, con respeto.";return ""}
-function validarSalud(){const f=S.f,e={};if(f.salud.length){const m=notaMsg(f.nota);if(m)e.nota=m;if(!f.aut)e.aut="Marca la autorización para guardar tu información de salud."}return e}
-function initF(){const p=A.p;S.f={tel:p.tel||"",sem:p.sem||"",x:p.x||"",salud:(p.salud||[]).slice(),nota:p.nota||"",aut:(p.salud||[]).length>0};S.errs={}}
-function saludHTML(){const f=S.f,e=S.errs,on=f.salud.length>0;
- return `<h3>Salud (opcional)</h3><p class="mut">Marca solo si tienes una condición que tu entrenador deba conocer. Solo la verán tu entrenador y la jefatura.</p>
- ${SALUD.map((s,i)=>`<label class="chk"><input type="checkbox" data-sl="${i}"${f.salud.includes(s)?" checked":""}>${esc(s)}</label>`).join("")}
- <label for="nota">Detalle breve (opcional, solo sobre lo que marcaste)</label><input id="nota" maxlength="80" placeholder="${on?"Ej.: alergia al polen, uso inhalador":"Marca una condición para escribir un detalle"}" value="${esc(f.nota||"")}"${on?"":" disabled"}>${e.nota?`<div class="err">${esc(e.nota)}</div>`:""}
- ${on?`<label class="chk"><input type="checkbox" id="aut"${f.aut?" checked":""}>Autorizo que mi entrenador y la jefatura vean esta información para cuidarme.</label>${e.aut?`<div class="err">${esc(e.aut)}</div>`:""}`:""}`}
+/* ===== 5. VISTAS DEL ALUMNO ===== */
+function student(){switch(S.view){
+ case"login":return login();
+ case"form":if(me)return enroll();break;
+ case"done":if(me)return receipt();break;
+ case"mine":if(me)return mine();break;
+ case"cert":if(S.cert)return certificate();break}
+ return catalog()}
 
-function vAlumno(){
- if(S.view==="login")return vLogin();
- if(S.view==="form"&&A)return form();
- if(S.view==="ok"&&A)return comp();
- if(S.view==="mi"&&A)return vMi();
- if(S.view==="const"&&S.doc)return vConst();
- if(!S.ready)return `<div class="card">${S.fail?'No se pudo conectar con la hoja. <button class="btn sec" data-act="retry">Reintentar</button>':"Cargando talleres…"}</div>`;
- const l=T.filter(t=>(S.tipo==="Todos"||t.t===S.tipo)&&(!S.busy||t.s!==S.busy)&&t.n.toLowerCase().includes(S.q.toLowerCase())).sort((a,b)=>S.ord==="l"?(b.c-b.ins)-(a.c-a.ins):a.n.localeCompare(b.n));
- const ses=A?`<div class="card row" style="justify-content:space-between"><span>Hola, <b>${esc(A.p.n)}</b> · ${esc(A.c)}</span><span class="row"><button class="btn sec" data-act="mi">Mi inscripción</button><button class="btn sec" data-act="out">Salir</button></span></div>`
-  :`<div class="card row" style="justify-content:space-between"><span class="mut">Para inscribirte entra con tu número de control y tu NIP.</span><button class="btn" data-act="gologin">Entrar</button></div>`;
- return `<h2>Talleres disponibles</h2><p class="note">Aquí ves todos los talleres sin ir módulo por módulo.</p>${ses}
- <div class="row" style="margin-bottom:8px"><input id="q" placeholder="Buscar taller" value="${esc(S.q)}" style="flex:1;min-width:160px"><select id="ord" style="width:auto"><option value="n">Orden: nombre</option><option value="l"${S.ord==="l"?" selected":""}>Orden: más lugares libres</option></select></div>
- <div class="row">${["Todos","Deportivo","Cívico","Cultural"].map(x=>`<button class="chip" data-act="tipo" data-v="${x}" aria-pressed="${S.tipo===x}">${x}</button>`).join("")}</div>
- <label for="busy">¿En qué horario tienes clases?</label><select id="busy">${Object.entries(SLOTS).map(([k,v])=>`<option value="${k}"${S.busy===k?" selected":""}>${v}</option>`).join("")}</select>
- ${S.open?"":'<div class="warn">Las inscripciones están cerradas. Consulta con Extraescolares.</div>'}
- <h3>${l.length} talleres</h3><div class="grid">${l.map(t=>{const n=t.ins,[k,tx]=est(t),ya=A&&A.mis.some(m=>m.t===t.id);return `<div class="card"><b>${esc(t.n)}</b> <span class="mut">· ${esc(t.t)}</span><div class="mut">${esc(t.h)}</div><div class="bar"><i style="width:${Math.min(100,n/t.c*100)}%"></i></div><div class="mut">${n} de ${t.c} lugares ocupados</div><p style="margin:6px 0"><span class="tag ${k}">${tx}</span></p><button class="btn" data-act="pick" data-v="${t.id}"${!S.open||k==="lleno"||ya?" disabled":""}>${ya?"Ya inscrito":"Inscribirme"}</button></div>`}).join("")||'<div class="card">Ningún taller cumple el filtro. Prueba con otro horario.</div>'}</div>`}
+function catalog(){
+ if(!S.ready)return card(S.fail?'No se pudo conectar. <button class="btn sec" data-a="retry">Reintentar</button>':"Cargando talleres…");
+ const q=S.q.toLowerCase(),list=W.filter(w=>(S.type==="Todos"||w.t===S.type)&&(!S.slot||w.s!==S.slot)&&w.n.toLowerCase().includes(q));
+ const top=me?`<span>Hola, <b>${esc(me.p.n)}</b> · ${esc(me.c)}</span><span class="row"><button class="btn sec" data-a="mine">Mi inscripción</button><button class="btn sec" data-a="logout">Salir</button></span>`
+  :`<span class="mut">Para inscribirte entra con tu número de control y NIP.</span><button class="btn" data-a="gologin">Entrar</button>`;
+ return `<h2>Talleres disponibles</h2>${card(`<div class="row between">${top}</div>`)}
+ <input data-live="q" placeholder="Buscar taller" value="${esc(S.q)}">
+ <div class="row" style="margin:8px 0">${TYPES.map(t=>`<button class="chip" data-a="type" data-v="${t}" aria-pressed="${S.type===t}">${t}</button>`).join("")}</div>
+ <label>¿En qué horario tienes clases?<select data-s="slot">${Object.entries(SLOTS).map(([k,v])=>`<option value="${k}"${S.slot===k?" selected":""}>${v}</option>`).join("")}</select></label>
+ ${S.open?"":'<div class="note bad">Las inscripciones están cerradas. Consulta con Extraescolares.</div>'}
+ <h3>${list.length} talleres</h3><div class="grid">${list.map(w=>{const[k,tx]=status(w),ya=me&&me.mis.some(m=>m.t===w.id);
+  return card(`<b>${esc(w.n)}</b> <span class="mut">· ${esc(w.t)}</span><div class="mut">${esc(w.h)}</div><div class="bar"><i style="width:${pct(w.ins,w.c)}%"></i></div><div class="mut">${w.ins} de ${w.c} lugares</div><p><span class="tag ${k}">${tx}</span></p><button class="btn" data-a="pick" data-v="${w.id}"${!S.open||k==="lleno"||ya?" disabled":""}>${ya?"Ya inscrito":"Inscribirme"}</button>`)}).join("")||card("Ningún taller cumple el filtro.")}</div>`}
 
-function vLogin(){return `<button class="btn sec" data-act="back">← Volver a talleres</button><h2 style="margin-top:12px">Entrar como alumno</h2>
- <div class="card"><p class="mut">Solo pueden inscribirse los alumnos registrados en la escuela. Usa tu número de control y el NIP que te dio Extraescolares.</p>
- ${fl("lc","Número de control","text","8 dígitos","username")}${fl("ln","NIP","password","","current-password")}
- <button class="btn" data-act="login" style="margin-top:12px">Entrar</button></div>`}
+const back='<button class="btn sec" data-a="back">← Talleres</button>';
+function login(){return `${back}<h2 style="margin-top:12px">Entrar como alumno</h2>${card(`<p class="mut">Usa tu número de control y el NIP que te dio Extraescolares.</p>${fld("lc","Número de control","text","8 dígitos","username")}${fld("ln","NIP","password","","current-password")}<p><button class="btn" data-enter data-a="login">Entrar</button></p>`)}`}
 
-function form(){const t=tl(S.pick),p=A.p,e=S.errs,f=S.f,ya=A.mis.some(m=>m.t!==S.pick);
- return `<button class="btn sec" data-act="back">← Volver a talleres</button><h2 style="margin-top:12px">Inscripción: ${esc(t.n)}</h2><p class="mut">${esc(t.t)} · ${esc(t.h)}</p>
- <div class="card"><div class="mut">Alumno</div><b>${esc(p.n)}</b> · ${esc(A.c)}
- ${p.sem?"":`<label for="sem">Semestre</label><select id="sem"><option value="">Elige uno</option>${[1,2,3,4,5,6,7,8,9].map(x=>`<option${f.sem==x?" selected":""}>${x}</option>`).join("")}</select>${e.sem?`<div class="err">${esc(e.sem)}</div>`:""}`}
- ${p.x?"":`<label for="x">Sexo</label><select id="x"><option value="">Elige uno</option><option value="M"${f.x==="M"?" selected":""}>Mujer</option><option value="H"${f.x==="H"?" selected":""}>Hombre</option></select>${e.x?`<div class="err">${esc(e.x)}</div>`:""}`}
- ${fl("tel","Teléfono (para el grupo de WhatsApp)","tel","10 dígitos","tel")}
- ${saludHTML()}
- ${ya?`<div class="warn">Ya estás inscrito en otro taller. Solo recibirás un crédito, aunque participes en varios.</div>`:""}
- <p class="mut">Tus datos se piden una sola vez y el entrenador los recibe en su lista.</p><button class="btn" data-act="send">Confirmar inscripción</button></div>`}
+const expBlock=()=>`<h3>Expediente médico (opcional)</h3><p class="mut">Escribe el número que te dieron en Servicios Médicos. Tu entrenador y la jefatura verán solo lo necesario para cuidarte.</p>${fld("exp","Número de expediente","text","Ej.: EXP-0001","off")}<p><button class="btn sec" data-a="verify">Verificar expediente</button></p>${S.expMsg?`<div class="note${S.expMsg.ok?"":" bad"}">${esc(S.expMsg.msg)}</div>`:""}`;
 
-function comp(){const d=S.done,t=tl(d.t),p=A.p;
- return `<div class="ok noprint">¡Listo! Quedaste inscrito.</div>
- <div class="doc"><div class="logos-document"><img class="dlogo" src="logo-tec.png.jfif" alt="ITMH" onerror="this.style.display='none'"><img class="dlogo" src="logo-tecnm.png" alt="TECNM" onerror="this.style.display='none'"></div><h2>Comprobante de inscripción</h2><div class="sub">${esc(S.inst||"TalTec · Talleres extraescolares")}</div>
- <p style="text-align:center">Se registró la inscripción de</p><div class="big">${esc(p.n)}</div>
- <p style="text-align:center">con número de control <b>${esc(A.c)}</b>, en el taller</p><div class="big">${esc(t.n)}</div>
- <p style="text-align:center">${esc(t.t)} · ${esc(t.h)}</p>
- <div class="pie"><span>Fecha: ${esc(d.fecha)}</span><span>Conserva este comprobante.</span></div></div>
- <div class="card noprint"><div class="row"><button class="btn" data-act="print">Imprimir / guardar PDF</button><button class="btn sec" data-act="mi">Mi inscripción</button><button class="btn sec" data-act="back">Ver talleres</button></div>
- <label for="chg">¿Quieres cambiarte de taller?</label><select id="chg">${T.filter(x=>x.id!==d.t&&!A.mis.some(m=>m.t===x.id)).map(x=>`<option value="${x.id}">${esc(x.n)} (${x.ins}/${x.c})</option>`).join("")}</select>
- ${S.open?"":'<div class="err">El periodo de cambios está cerrado.</div>'}
- <div class="row" style="margin-top:10px"><button class="btn sec" data-act="chg"${S.open?"":" disabled"}>Cambiar de taller</button></div></div>`}
+function enroll(){const w=shop(S.pick),p=me.p,other=me.mis.some(m=>m.t!==S.pick);
+ return `${back}<h2 style="margin-top:12px">Inscripción: ${esc(w.n)}</h2><p class="mut">${esc(w.t)} · ${esc(w.h)}</p>
+ ${card(`<b>${esc(p.n)}</b> · ${esc(me.c)}
+ ${p.sem?"":`<label>Semestre<select data-f="sem"><option value="">Elige uno</option>${[1,2,3,4,5,6,7,8,9].map(n=>`<option${S.f.sem==n?" selected":""}>${n}</option>`).join("")}</select></label>${S.err.sem?`<div class="err">${S.err.sem}</div>`:""}`}
+ ${p.x?"":`<label>Sexo<select data-f="x"><option value="">Elige uno</option><option value="M"${S.f.x==="M"?" selected":""}>Mujer</option><option value="H"${S.f.x==="H"?" selected":""}>Hombre</option></select></label>${S.err.x?`<div class="err">${S.err.x}</div>`:""}`}
+ ${fld("tel","Teléfono (para el grupo de WhatsApp)","tel","10 dígitos","tel")}${expBlock()}
+ ${other?'<div class="note bad">Ya estás inscrito en otro taller. Solo recibirás un crédito.</div>':""}
+ <p><button class="btn" data-a="send">Confirmar inscripción</button></p>`)}`}
 
-function vMi(){const p=A.p;
- return `<button class="btn sec" data-act="back">← Talleres</button><h2 style="margin-top:12px">Mi inscripción</h2><p class="mut">${esc(p.n)} · ${esc(A.c)}</p>
- ${A.mis.length?A.mis.map(m=>{const t=tl(m.t)||{n:"(taller)",h:""},ok=m.h>=S.meta;return `<div class="card"><b>${esc(t.n)}</b><br>${esc(t.h)}<br><span class="mut">Horas acumuladas: ${m.h} de ${S.meta}</span><div class="bar"><i style="width:${Math.min(100,m.h/S.meta*100)}%"></i></div>${ok?`<span class="tag">Ya cumples las ${S.meta} horas</span> <button class="btn" data-act="const" data-v="${m.t}">Descargar constancia</button>`:""}</div>`}).join(""):'<div class="warn">Todavía no tienes inscripciones.</div>'}
- <div class="card"><h3 style="margin-top:0">Mis datos de contacto y salud</h3>${fl("tel","Teléfono","tel","10 dígitos","tel")}${saludHTML()}<button class="btn" data-act="gsalud" style="margin-top:12px">Guardar</button></div>`}
+const logos='<p><img src="logo-tec.png.jfif" height="60" alt="" onerror="this.remove()"> <img src="logo-tecnm.png" height="60" alt="" onerror="this.remove()"></p>';
+function receipt(){const d=S.done,w=shop(d.t);
+ return `<div class="note noprint">¡Listo! Quedaste inscrito.</div>
+ <div class="doc">${logos}<h3>Comprobante de inscripción</h3><p>${esc(S.school)}</p><p>Se registró la inscripción de</p><div class="big">${esc(me.p.n)}</div><p>con número de control <b>${esc(me.c)}</b>, en el taller</p><div class="big">${esc(w.n)}</div><p>${esc(w.t)} · ${esc(w.h)}</p><small>Fecha: ${esc(d.fecha)} · Conserva este comprobante.</small></div>
+ ${card(`<div class="row noprint"><button class="btn" data-a="print">Imprimir / guardar PDF</button><button class="btn sec" data-a="mine">Mi inscripción</button><button class="btn sec" data-a="back">Ver talleres</button></div>
+ <label>¿Quieres cambiarte de taller?<select data-f="chg">${W.filter(x=>x.id!==d.t&&!me.mis.some(m=>m.t===x.id)).map(x=>`<option value="${x.id}">${esc(x.n)} (${x.ins}/${x.c})</option>`).join("")}</select></label>
+ <p><button class="btn sec" data-a="change"${S.open?"":" disabled"}>Cambiar de taller</button></p>`)}`}
 
-function vConst(){const d=S.doc;
- return `<div class="noprint row"><button class="btn sec" data-act="mi">← Mi inscripción</button><button class="btn" data-act="print">Imprimir / guardar PDF</button></div>
- <div class="doc"><div class="logos-document"><img class="dlogo" src="logo-tec.png.jfif" alt="ITMH" onerror="this.style.display='none'"><img class="dlogo" src="logo-tecnm.png" alt="TECNM" onerror="this.style.display='none'"></div><h2>${esc(d.inst||"TalTec")}</h2><div class="sub">Actividades extraescolares</div><div class="big">CONSTANCIA</div>
- <p style="text-align:center">Se hace constar que</p><div class="big">${esc(d.nombre)}</div>
- <p style="text-align:justify">con número de control <b>${esc(d.c)}</b>, cumplió satisfactoriamente <b>${d.horas} horas</b> (mínimo requerido: ${d.meta}) en el taller <b>${esc(d.taller)}</b> (${esc(d.tipo)}), por lo que acredita su participación en actividades extraescolares.</p>
- <p style="text-align:center">Se expide el ${esc(d.fecha)}.</p>
- <div class="fm"><hr>${esc(d.resp||"Jefatura de Extraescolares")}<br><span style="font-size:12px">Jefatura de Extraescolares</span></div>
- <div class="pie"><span>Folio: <b>${esc(d.folio)}</b></span><span>Folio registrado en el sistema TalTec.</span></div></div>`}
+function mine(){
+ const list=me.mis.map(m=>{const w=shop(m.t),ok=m.h>=S.goal;
+  return card(`<b>${esc(w.n)}</b><br>${esc(w.h)}<br><span class="mut">Horas: ${m.h} de ${S.goal}</span><div class="bar"><i style="width:${pct(m.h,S.goal)}%"></i></div>${ok?`<span class="tag">Cumples las ${S.goal} horas</span> <button class="btn" data-a="cert" data-v="${m.t}">Descargar constancia</button>`:""}`)}).join("");
+ return `${back}<h2 style="margin-top:12px">Mi inscripción</h2><p class="mut">${esc(me.p.n)} · ${esc(me.c)}</p>${list||'<div class="note bad">Todavía no tienes inscripciones.</div>'}
+ ${card(`<h3 style="margin-top:0">Mis datos de contacto y expediente</h3>${fld("tel","Teléfono","tel","10 dígitos","tel")}${expBlock()}<p><button class="btn" data-a="saveContact">Guardar</button></p>`)}`}
 
-const filtJ=()=>J.insc.filter(e=>(S.jt===""||e.t==S.jt)&&(S.js===""||e.x===S.js)&&(S.jm===""||e.sem==S.jm)&&e.c.includes(S.jc));
-function vJefa(){
- if(!J)return `<h2>Panel de la jefatura</h2><div class="card">${fl("jk","Contraseña de jefatura","password","","current-password")}<button class="btn" data-act="jlogin" style="margin-top:12px">Entrar</button></div>`;
- const L=filtJ();
- return `<div class="row" style="justify-content:space-between"><h2>Panel de la jefatura</h2><button class="btn sec" data-act="jout">Salir</button></div><p class="note">La información de salud es confidencial: úsala solo para cuidar al alumno.</p>
- <div class="card row" style="justify-content:space-between"><span>Inscripciones y cambios: <b>${S.open?"abiertos":"cerrados"}</b></span><button class="btn${S.open?"":" sec"}" data-act="per">${S.open?"Cerrar periodo":"Reabrir periodo"}</button></div>
- <h3>Talleres: inscritos y estado</h3><div class="card tw"><table><tr><th>Taller</th><th>Inscritos</th><th>Cupo</th><th>Estado</th></tr>${T.map(t=>{const[k,tx]=est(t);return `<tr><td>${esc(t.n)}</td><td>${t.ins}<div class="bar" style="min-width:70px"><i style="width:${Math.min(100,t.ins/t.c*100)}%"></i></div></td><td>${t.c}</td><td><span class="tag ${k}">${tx}</span></td></tr>`}).join("")}</table></div>
- <h3>Alumnos inscritos</h3><div class="card"><div class="grid">
- <div><label for="jt">Taller</label><select id="jt"><option value="">Todos</option>${T.map(t=>`<option value="${t.id}"${S.jt!==""&&S.jt==t.id?" selected":""}>${esc(t.n)}</option>`).join("")}</select></div>
- <div><label for="js">Sexo</label><select id="js"><option value="">Todos</option><option value="M"${S.js==="M"?" selected":""}>Mujer</option><option value="H"${S.js==="H"?" selected":""}>Hombre</option></select></div>
- <div><label for="jm">Semestre</label><select id="jm"><option value="">Todos</option>${[1,2,3,4,5,6,7,8,9].map(x=>`<option${S.jm==x?" selected":""}>${x}</option>`).join("")}</select></div>
- <div><label for="jc">Número de control</label><input id="jc" value="${esc(S.jc)}" placeholder="Busca por número"></div></div>
- <p class="mut">${L.length} alumnos (se muestran 40)</p><button class="btn sec" data-act="cop" style="margin-bottom:8px">Copiar lista</button><div class="tw"><table><tr><th>Control</th><th>Nombre</th><th>Sem.</th><th>Sexo</th><th>Taller</th><th>Horas</th><th>Salud</th></tr>${L.slice(0,40).map(e=>`<tr><td>${esc(e.c)}</td><td>${esc(e.n)}</td><td>${e.sem}</td><td>${esc(e.x)}</td><td>${esc((tl(e.t)||{}).n||"")}</td><td>${e.h}</td><td>${sal(e)}</td></tr>`).join("")}</table></div></div>`}
+function certificate(){const d=S.cert;
+ return `<div class="row noprint"><button class="btn sec" data-a="mine">← Mi inscripción</button><button class="btn" data-a="print">Imprimir / guardar PDF</button></div>
+ <div class="doc">${logos}<h3>${esc(d.inst||"TalTec")}</h3><p>Actividades extraescolares</p><div class="big">CONSTANCIA</div><p>Se hace constar que</p><div class="big">${esc(d.nombre)}</div>
+ <p>con número de control <b>${esc(d.c)}</b>, cumplió satisfactoriamente <b>${d.horas} horas</b> (mínimo: ${d.meta}) en el taller <b>${esc(d.taller)}</b> (${esc(d.tipo)}).</p><p>Se expide el ${esc(d.fecha)}.</p>
+ <div class="sign">${esc(d.resp||"Jefatura de Extraescolares")}<br><small style="margin:0">Jefatura de Extraescolares</small></div><small>Folio: <b>${esc(d.folio)}</b></small></div>`}
 
-function vEnt(){
- const sel=S.et!=null?S.et:(T.length?T[0].id:0);
- if(!Z)return `<h2>Mi taller (entrenador)</h2><div class="card"><label for="et">Taller</label><select id="et">${T.map(t=>`<option value="${t.id}"${sel===t.id?" selected":""}>${esc(t.n)}</option>`).join("")}</select>${fl("ek","Contraseña del taller","password","","current-password")}<button class="btn" data-act="elogin" style="margin-top:12px">Entrar</button></div>`;
- const t=tl(Z.t)||{n:""},L=Z.insc;
- return `<div class="row" style="justify-content:space-between"><h2>Mi taller: ${esc(t.n)}</h2><button class="btn sec" data-act="eout">Salir</button></div><p class="note">Solo ves los inscritos de tu taller. La información de salud es confidencial: úsala solo para cuidar al alumno.</p>
- <h3>${L.length} inscritos</h3><div class="card tw"><table><tr><th>Asistió hoy</th><th>Nombre</th><th>Teléfono</th><th>Horas</th><th>Salud</th><th></th></tr>${L.map(e=>`<tr><td><input type="checkbox" class="as" data-c="${esc(e.c)}"${S.chk[e.c]?" checked":""} aria-label="Asistió ${esc(e.n)}" style="width:22px;min-height:22px"></td><td>${esc(e.n)}</td><td>${esc(e.tel)}</td><td>${e.h}</td><td>${e.salud.length?`<span class="tag espera">${sal(e)}</span>`:"—"}</td><td>${e.h>=S.meta?`<span class="tag">Cumple ${S.meta} h</span>`:""}</td></tr>`).join("")}</table></div>
- <div class="card"><label for="hrs" style="margin-top:0">Horas de esta sesión</label>
- <div class="row">${[1,2,3].map(n=>`<button class="chip" data-act="hr" data-v="${n}" aria-pressed="${hrsVal()===n}">${n} h</button>`).join("")}
- <input id="hrs" type="number" inputmode="decimal" min="0.25" max="12" step="0.25" value="${esc(S.hrs)}" style="width:110px" aria-label="Horas personalizadas"><span class="mut">horas (personalizado, de 15 en 15 min)</span></div></div>
- <button class="btn sec" data-act="all">Marcar a todos</button> <button class="btn" id="btnses" data-act="ses">${hrsVal()?`Registrar sesión de ${hrsVal()} h`:"Registrar sesión"}</button> <button class="btn sec" data-act="lst">${S.lst?"Ocultar lista":"Ver lista para el grupo"}</button>
- ${S.lst?`<div class="card" style="margin-top:10px"><b>Lista de ${esc(t.n)}</b><br>${L.map(e=>esc(e.n)+" · "+esc(e.tel)).join("<br>")}</div>`:""}`}
+/* ===== 6. VISTAS DEL PERSONAL (jefatura, entrenador, medicina) ===== */
+function staffView(){const cfg=STAFF[S.role],s=staff[S.role];
+ if(!s){const pick=S.role==="entrenador"?`<label>Taller<select data-f="t">${W.map(w=>`<option value="${w.id}"${S.f.t==w.id?" selected":""}>${esc(w.n)}</option>`).join("")}</select></label>`:"";
+  return `<h2>${cfg.title}</h2>${card(`${pick}${fld("key",cfg.label,"password","","current-password")}<p><button class="btn" data-enter data-a="slogin">Entrar</button></p>`)}`}
+ return `<div class="row between"><h2>${cfg.title}</h2><button class="btn sec" data-a="slogout">Salir</button></div>`+({jefatura:adminBody,entrenador:coachBody,medicina:doctorBody}[S.role])(s)}
 
-function draw(){
- document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.role===S.role));
- $("#app").innerHTML=S.role==="alumno"?vAlumno():S.role==="jefatura"?vJefa():vEnt();
- $("#modo").textContent=S.ready?"Conectado a Google Sheets · los cambios se guardan en la hoja":S.fail?"Sin conexión con la hoja · reintentando…":"Conectando con la hoja…"}
+function adminBody(s){
+ const L=s.data.filter(e=>(!S.wf||e.t==S.wf)&&e.c.includes(S.sq));
+ return `${card(`<div class="row between"><span>Inscripciones y cambios: <b>${S.open?"abiertos":"cerrados"}</b></span><button class="btn${S.open?"":" sec"}" data-a="period">${S.open?"Cerrar periodo":"Reabrir periodo"}</button></div>`)}
+ <h3>Talleres</h3>${card(`<div class="tw"><table><tr><th>Taller</th><th>Inscritos</th><th>Cupo</th><th>Estado</th></tr>${W.map(w=>{const[k,tx]=status(w);return `<tr><td>${esc(w.n)}</td><td>${w.ins}</td><td>${w.c}</td><td><span class="tag ${k}">${tx}</span></td></tr>`}).join("")}</table></div>`)}
+ <h3>Alumnos inscritos</h3>${card(`<div class="grid"><label>Taller<select data-s="wf"><option value="">Todos</option>${W.map(w=>`<option value="${w.id}"${S.wf==w.id?" selected":""}>${esc(w.n)}</option>`).join("")}</select></label>
+ <label>Número de control<input data-live="sq" value="${esc(S.sq)}" placeholder="Busca por número"></label></div>
+ <p class="mut">${L.length} alumnos (se muestran 40) <button class="btn sec" data-a="copy">Copiar lista</button></p>
+ <div class="tw"><table><tr><th>Control</th><th>Nombre</th><th>Sem.</th><th>Taller</th><th>Horas</th><th>Expediente</th></tr>${L.slice(0,40).map(e=>`<tr><td>${esc(e.c)}</td><td>${esc(e.n)}</td><td>${e.sem}</td><td>${esc(shop(e.t).n)}</td><td>${e.h}</td><td>${medLine(e)}</td></tr>`).join("")}</table></div>`)}`}
 
-async function doLogin(){
- const c=(S.f.lc||"").trim(),nip=(S.f.ln||"").trim(),e={};
- if(!/^\d{8}$/.test(c))e.lc="Escribe tu número de control: son 8 dígitos.";
- if(!nip)e.ln="Escribe tu NIP.";
- S.errs=e;if(Object.keys(e).length){draw();return}
- wait("Verificando…");
- const r=await api("login",{c,nip});idle();
- if(!r.ok){S.errs={ln:r.msg||"No se pudo entrar."};draw();return}
- A={c,nip,p:r.perfil,mis:r.mis};S.errs={};
- if(S.after==="form"&&S.pick!==null){initF();S.view="form"}else if(S.after==="mi"){initF();S.view="mi"}else S.view="cat";
+function coachBody(s){const h=+S.f.hrs;
+ return `<p class="mut">Solo ves a los inscritos de tu taller. La información médica es confidencial.</p><h3>${s.data.length} inscritos</h3>
+ ${card(`<div class="tw"><table><tr><th>Asistió</th><th>Nombre</th><th>Teléfono</th><th>Horas</th><th>Expediente</th></tr>${s.data.map(e=>`<tr><td><input type="checkbox" data-att="${esc(e.c)}"${S.att[e.c]?" checked":""} aria-label="Asistió ${esc(e.n)}"></td><td>${esc(e.n)}</td><td>${esc(e.tel)}</td><td>${e.h}${e.h>=S.goal?` <span class="tag">Cumple</span>`:""}</td><td>${e.med?`<span class="tag espera">${medLine(e)}</span>`:"—"}</td></tr>`).join("")}</table></div>`)}
+ ${card(`<b>Horas de esta sesión</b><div class="row" style="margin-top:6px">${[1,2,3].map(n=>`<button class="chip" data-a="hours" data-v="${n}" aria-pressed="${h===n}">${n} h</button>`).join("")}<input data-f="hrs" type="number" min="0.25" max="12" step="0.25" value="${esc(S.f.hrs)}" style="width:110px" aria-label="Horas"></div>`)}
+ <div class="row"><button class="btn sec" data-a="all">Marcar a todos</button><button class="btn" data-a="session">Registrar sesión</button></div>`}
+
+const MED_FIELDS=[["Control","c"],["Semestre","sem"],["Sexo","x"],["Teléfono","tel"],["Taller(es)","talleres"],["Sangre","sangre"],["Condiciones","cond"],["Alergias","alergias"],["Medicamentos","meds"],["Contacto de emergencia","contacto"],["Observaciones","obs"]];
+function doctorBody(s){
+ const q=S.sq.trim().toLowerCase(),L=s.data.filter(r=>[r.folio,r.c,r.n].join(" ").toLowerCase().includes(q)),exact=q&&s.data.find(r=>r.folio.toLowerCase()===q);
+ let msg;switch(true){
+  case!q:msg=`<p class="mut">${s.data.length} expedientes. Escribe un folio, control o nombre.</p>`;break;
+  case!!exact:msg=`<div class="note">✔ Folio válido: ${esc(exact.folio)} · ${esc(exact.n)}</div>`;break;
+  case L.length>0:msg=`<p class="mut">${L.length} resultado(s). Para verificar un folio escríbelo completo.</p>`;break;
+  default:msg='<div class="note bad">✖ No existe expediente con ese dato.</div>'}
+ return `<p class="mut">Información confidencial: úsala solo para cuidar al alumno.</p><label>Verificar o buscar<input data-live="sq" value="${esc(S.sq)}" placeholder="Ej.: EXP-0001" autocomplete="off"></label>${msg}
+ ${L.slice(0,30).map(r=>card(`<b>${esc(r.n)}</b> <span class="tag">Folio ${esc(r.folio)}</span><dl>${MED_FIELDS.map(([t,k])=>`<dt>${t}</dt><dd>${esc(r[k]||"—")}</dd>`).join("")}</dl>`)).join("")}`}
+
+/* ===== 7. DIBUJO ===== */
+const draw=()=>{$("#role").value=S.role;$("#app").innerHTML=(S.role==="alumno"?student:staffView)()};
+
+/* ===== 8. ACCIONES (un solo switch) ===== */
+async function act(a,v){switch(a){
+ case"retry":return load();
+ case"type":S.type=v;break;
+ case"gologin":Object.assign(S,{after:"catalog",view:"login",err:{},f:{}});break;
+ case"logout":me=null;Object.assign(S,{view:"catalog",pick:null,f:{}});break;
+ case"back":Object.assign(S,{view:"catalog",err:{}});break;
+ case"pick":S.pick=+v;S.err={};if(me){resetForm();S.view="form"}else Object.assign(S,{after:"form",view:"login",f:{}});break;
+ case"mine":S.err={};if(!me){Object.assign(S,{after:"mine",view:"login",f:{}});break}
+  {const r=await call("login",{c:me.c,nip:me.nip},"Cargando");if(r.ok){me.p=r.perfil;me.mis=r.mis}resetForm();S.view="mine"}break;
+ case"login":return doLogin();
+ case"verify":return doVerify();
+ case"send":return doSend();
+ case"change":return doChange();
+ case"saveContact":return doContact();
+ case"cert":return doCert(+v);
+ case"print":return print();
+ case"slogin":return doStaffLogin();
+ case"slogout":delete staff[S.role];Object.assign(S,{sq:"",wf:"",f:{hrs:"1"},att:{}});break;
+ case"period":{const r=await call("periodo",{clave:staff.jefatura.clave,abierto:!S.open},"Guardando");if(!r.ok)return toast(r.msg||"No se pudo cambiar");await load();toast(S.open?"Periodo abierto":"Periodo cerrado")}break;
+ case"copy":{const L=staff.jefatura.data.filter(e=>(!S.wf||e.t==S.wf)&&e.c.includes(S.sq));
+  try{await navigator.clipboard.writeText(L.map(e=>[e.c,e.n,e.sem,e.x,e.tel,shop(e.t).n,e.h,e.med?e.med.folio+" "+e.med.cond:""].join("\t")).join("\n"));toast("Lista copiada")}catch(x){toast("No se pudo copiar")}return}
+ case"hours":S.f.hrs=v;break;
+ case"all":staff.entrenador.data.forEach(e=>S.att[e.c]=true);break;
+ case"session":return doSession()}
  draw()}
-function validarForm(){const f=S.f,e={},p=A.p;
- if(!/^\d{10}$/.test(f.tel||""))e.tel="Escribe tu teléfono a 10 dígitos, sin espacios.";
- if(!p.sem&&!f.sem)e.sem="Elige tu semestre.";
- if(!p.x&&!f.x)e.x="Elige una opción.";
- if(A.mis.some(m=>m.t===S.pick))e.tel="Ya estás inscrito en este taller.";
- return Object.assign(e,validarSalud())}
-async function doSend(){
- S.errs=validarForm();if(Object.keys(S.errs).length){draw();return}
- const f=S.f;wait("Guardando…");
- const r=await api("inscribir",{c:A.c,nip:A.nip,t:S.pick,tel:f.tel,sem:f.sem,x:f.x,salud:f.salud,nota:f.salud.length?(f.nota||"").trim():"",aut:!!f.aut});
- idle();
- if(!r.ok){toast(r.msg||"No se pudo guardar");S.view="cat";await load();draw();return}
- A.p=r.perfil;A.mis=r.mis;S.done={t:S.pick,fecha:r.fecha};S.view="ok";toast("Inscripción registrada");draw();load()}
-async function doChg(){
- const n=+$("#chg").value;wait("Guardando…");
- const r=await api("cambiar",{c:A.c,nip:A.nip,t0:S.done.t,t:n});idle();
- if(!r.ok){toast(r.msg||"No se pudo cambiar");await load();draw();return}
- A.mis=r.mis;S.done.t=n;S.done.fecha=r.fecha||S.done.fecha;toast("Cambio de taller registrado");draw();load()}
-async function doSalud(){
- const f=S.f,e={};if(!/^\d{10}$/.test(f.tel||""))e.tel="Escribe tu teléfono a 10 dígitos, sin espacios.";
- Object.assign(e,validarSalud());S.errs=e;if(Object.keys(e).length){draw();return}
- wait("Guardando…");
- const r=await api("salud",{c:A.c,nip:A.nip,tel:f.tel,salud:f.salud,nota:f.salud.length?(f.nota||"").trim():"",aut:!!f.aut});idle();
- if(!r.ok){toast(r.msg||"No se pudo guardar");return}
- A.p=r.perfil;initF();toast("Datos guardados");draw()}
-async function doConst(t){
- wait("Generando constancia…");
- const r=await api("constancia",{c:A.c,nip:A.nip,t});idle();
- if(!r.ok){toast(r.msg||"No se pudo generar la constancia");return}
- S.doc=r;S.view="const";draw()}
-async function doJefa(){
- const clave=S.f.jk||"";if(!clave){S.errs={jk:"Escribe la contraseña."};draw();return}
- wait("Verificando…");const r=await api("jefa",{clave});idle();
- if(!r.ok){S.errs={jk:r.msg||"No se pudo entrar."};draw();return}
- J={clave,insc:r.insc};S.errs={};S.f.jk="";draw()}
-async function doPer(){
- wait("Guardando…");const r=await api("periodo",{clave:J.clave,abierto:!S.open});idle();
- if(!r.ok){toast(r.msg||"No se pudo cambiar");return}
- toast(S.open?"Periodo cerrado":"Periodo abierto");await load();draw()}
-async function doEnt(){
- const t=S.et!=null?S.et:(T.length?T[0].id:0),clave=S.f.ek||"";
- if(!clave){S.errs={ek:"Escribe la contraseña."};draw();return}
- wait("Verificando…");const r=await api("ent",{t,clave});idle();
- if(!r.ok){S.errs={ek:r.msg||"No se pudo entrar."};draw();return}
- Z={t,clave,insc:r.insc};S.errs={};S.f.ek="";draw()}
-async function doSes(){
- const h=hrsVal();if(!h){toast("Escribe las horas de la sesión (de 0.25 a 12).");return}
- const ch=Z.insc.filter(e=>S.chk[e.c]).map(e=>e.c);if(!ch.length){toast("Marca al menos un alumno");return}
- wait("Guardando…");const r=await api("sesion",{t:Z.t,clave:Z.clave,controles:ch,horas:h});idle();
- if(!r.ok){toast(r.msg||"No se pudo guardar");return}
- S.chk={};toast(`Sesión de ${h} h registrada para ${ch.length} alumnos`);
- const z=await api("ent",{t:Z.t,clave:Z.clave});if(z.ok)Z.insc=z.insc;draw()}
-function hrsVal(){const h=Math.round(parseFloat(String(S.hrs).replace(",","."))*4)/4;return h>=0.25&&h<=12?h:null}
-function copiar(){const L=filtJ();try{navigator.clipboard.writeText(L.map(e=>[e.c,e.n,e.sem,e.x,e.tel,(tl(e.t)||{}).n,e.h,e.salud.join("; ")].join("\t")).join("\n")).then(()=>toast("Lista copiada"),()=>toast("No se pudo copiar"))}catch(x){toast("No se pudo copiar")}}
 
-document.addEventListener("click",async ev=>{
- const r=ev.target.closest("[data-role]");if(r){S.role=r.dataset.role;S.view="cat";S.errs={};S.f={};draw();return}
- const b=ev.target.closest("[data-act]");if(!b||b.disabled||S.wait)return;
- const a=b.dataset.act,v=b.dataset.v;
- switch(a){
-  case"tipo":S.tipo=v;break;
-  case"retry":load();return;
-  case"gologin":S.after="cat";S.view="login";S.errs={};S.f={};break;
-  case"out":A=null;S.view="cat";S.pick=null;S.f={};break;
-  case"pick":S.pick=+v;S.errs={};if(A){initF();S.view="form"}else{S.after="form";S.view="login";S.f={}}break;
-  case"back":S.view="cat";S.errs={};break;
-  case"mi":S.errs={};if(A){wait("Cargando");const q=await api("login",{c:A.c,nip:A.nip});idle();if(q.ok){A.p=q.perfil;A.mis=q.mis}initF();S.view="mi"}else{S.after="mi";S.view="login";S.f={}}break;
-  case"login":await doLogin();return;
-  case"send":await doSend();return;
-  case"chg":await doChg();return;
-  case"gsalud":await doSalud();return;
-  case"const":await doConst(+v);return;
-  case"print":window.print();return;
-  case"jlogin":await doJefa();return;
-  case"jout":J=null;S.f={};break;
-  case"per":await doPer();return;
-  case"cop":copiar();return;
-  case"elogin":await doEnt();return;
-  case"eout":Z=null;S.chk={};S.lst=false;S.f={};break;
-  case"hr":S.hrs=v;break;
-  case"all":Z.insc.forEach(e=>S.chk[e.c]=true);break;
-  case"ses":await doSes();return;
-  case"lst":S.lst=!S.lst;break;
- }
- draw()});
-document.addEventListener("input",ev=>{const i=ev.target.id;
- if(i==="hrs"){S.hrs=ev.target.value;const h=hrsVal(),bt=$("#btnses");if(bt)bt.textContent=h?`Registrar sesión de ${h} h`:"Registrar sesión";document.querySelectorAll('[data-act="hr"]').forEach(c=>c.setAttribute("aria-pressed",String(h===+c.dataset.v)));return}
- if(["lc","ln","tel","nota","jk","ek"].includes(i))S.f[i]=ev.target.value;
- if(["jc","q"].includes(i)){S[i]=ev.target.value;const p=ev.target.selectionStart;draw();const n=$("#"+i);n.focus();n.setSelectionRange(p,p)}});
-document.addEventListener("change",ev=>{const el=ev.target,i=el.id;
- if(el.dataset.sl!==undefined){const s=SALUD[+el.dataset.sl],a=S.f.salud,k=a.indexOf(s);if(el.checked&&k<0)a.push(s);if(!el.checked&&k>=0)a.splice(k,1);if(!a.length){S.f.nota="";S.f.aut=false}draw();return}
- if(i==="aut"){S.f.aut=el.checked;return}
- if(el.classList.contains("as")){S.chk[el.dataset.c]=el.checked;return}
- if(["sem","x"].includes(i)){S.f[i]=el.value;return}
- if(i==="busy"){S.busy=el.value;draw()}if(i==="ord"){S.ord=el.value;draw()}
- if(i==="jt"){S.jt=el.value;draw()}if(i==="js"){S.js=el.value;draw()}if(i==="jm"){S.jm=el.value;draw()}
- if(i==="et"){S.et=+el.value;draw()}});
-document.addEventListener("keydown",ev=>{if(ev.key!=="Enter")return;const m={lc:"login",ln:"login",jk:"jlogin",ek:"elogin"}[ev.target.id];if(m){const b=document.querySelector(`[data-act="${m}"]`);if(b)b.click()}});
-load();setInterval(load,10000);
-draw();
+function resetForm(){const p=me.p;S.f={tel:p.tel||"",sem:p.sem||"",x:p.x||"",exp:p.exp||""};S.err={};S.expMsg=null}
+async function doLogin(){const c=(S.f.lc||"").trim(),nip=(S.f.ln||"").trim();
+ S.err={};if(!/^\d{8}$/.test(c))S.err.lc="Escribe tu número de control (8 dígitos).";if(!nip)S.err.ln="Escribe tu NIP.";
+ if(Object.keys(S.err).length)return draw();
+ const r=await call("login",{c,nip},"Verificando");if(!r.ok){S.err={ln:r.msg||"No se pudo entrar."};return draw()}
+ me={c,nip,p:r.perfil,mis:r.mis};resetForm();S.view=S.after==="catalog"?"catalog":S.after==="mine"?"mine":"form";draw()}
+async function doVerify(){const exp=(S.f.exp||"").trim();
+ if(!exp)S.expMsg={ok:false,msg:"Escribe tu número de expediente."};
+ else{const r=await call("verexp",{c:me.c,nip:me.nip,exp},"Verificando");S.expMsg=r.ok?{ok:true,msg:`✔ Expediente ${r.exp.folio} verificado: ${r.exp.n}.`}:{ok:false,msg:r.msg}}
+ draw()}
+async function doSend(){const f=S.f,p=me.p;S.err={};
+ if(!phoneOk(f.tel))S.err.tel="Escribe tu teléfono a 10 dígitos.";
+ if(!p.sem&&!f.sem)S.err.sem="Elige tu semestre.";if(!p.x&&!f.x)S.err.x="Elige una opción.";
+ if(Object.keys(S.err).length)return draw();
+ const r=await call("inscribir",{c:me.c,nip:me.nip,t:S.pick,tel:f.tel,sem:f.sem,x:f.x,exp:(f.exp||"").trim()},"Guardando");
+ if(r.field==="exp"){S.err.exp=r.msg;return draw()}
+ if(!r.ok){toast(r.msg||"No se pudo guardar");S.view="catalog";await load();return draw()}
+ me.p=r.perfil;me.mis=r.mis;S.done={t:S.pick,fecha:r.fecha};S.view="done";toast("Inscripción registrada");draw();load()}
+async function doChange(){const t=+$("[data-f=chg]").value;
+ const r=await call("cambiar",{c:me.c,nip:me.nip,t0:S.done.t,t},"Guardando");
+ if(!r.ok){toast(r.msg||"No se pudo cambiar");await load();return draw()}
+ me.mis=r.mis;S.done={t,fecha:r.fecha};toast("Cambio registrado");draw();load()}
+async function doContact(){const f=S.f;S.err={};if(!phoneOk(f.tel)){S.err.tel="Escribe tu teléfono a 10 dígitos.";return draw()}
+ const r=await call("contacto",{c:me.c,nip:me.nip,tel:f.tel,exp:(f.exp||"").trim()},"Guardando");
+ if(r.field==="exp"){S.err.exp=r.msg;return draw()}
+ if(!r.ok)return toast(r.msg||"No se pudo guardar");
+ me.p=r.perfil;resetForm();toast("Datos guardados");draw()}
+async function doCert(t){const r=await call("constancia",{c:me.c,nip:me.nip,t},"Generando constancia");
+ if(!r.ok)return toast(r.msg||"No se pudo generar");S.cert=r;S.view="cert";draw()}
+async function doStaffLogin(){const role=S.role,clave=S.f.key||"",t=+(S.f.t||(W[0]&&W[0].id)||0);
+ if(!clave){S.err={key:"Escribe la contraseña."};return draw()}
+ const r=await call(STAFF[role].act,{clave,t},"Verificando");if(!r.ok){S.err={key:r.msg||"No se pudo entrar."};return draw()}
+ staff[role]={clave,t,data:r.insc||r.regs};S.err={};S.f={hrs:"1"};draw()}
+async function doSession(){const s=staff.entrenador,h=Math.round(parseFloat(String(S.f.hrs).replace(",","."))*4)/4;
+ if(!(h>=0.25&&h<=12))return toast("Escribe horas entre 0.25 y 12.");
+ const who=s.data.filter(e=>S.att[e.c]).map(e=>e.c);if(!who.length)return toast("Marca al menos un alumno.");
+ const r=await call("sesion",{t:s.t,clave:s.clave,controles:who,horas:h},"Guardando");if(!r.ok)return toast(r.msg||"No se pudo guardar");
+ S.att={};toast(`Sesión de ${h} h registrada para ${who.length} alumnos`);await pullStaff("entrenador");draw()}
+
+/* ===== 9. EVENTOS ===== atributos: data-a acción · data-f campo del formulario · data-s filtro
+   · data-live buscador · data-att asistencia · data-enter botón de la tecla Enter */
+document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&!b.disabled&&!S.wait)act(b.dataset.a,b.dataset.v)});
+document.addEventListener("input",e=>{const el=e.target,d=el.dataset;
+ if(d.f){S.f[d.f]=el.value;if(d.f==="exp")S.expMsg=null}
+ if(d.live){S[d.live]=el.value;const at=el.selectionStart;draw();const n=document.querySelector(`[data-live="${d.live}"]`);n.focus();n.setSelectionRange(at,at)}});
+document.addEventListener("change",e=>{const el=e.target,d=el.dataset;
+ if(d.att){S.att[d.att]=el.checked;return}
+ if(d.f){S.f[d.f]=el.value;return}
+ if(d.s){if(d.s==="role")Object.assign(S,{role:el.value,view:"catalog",err:{},sq:"",wf:"",f:{hrs:"1"}});else S[d.s]=el.value;draw()}});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset.f){const b=$("[data-enter]");if(b)b.click()}});
+
+/* ===== 10. ARRANQUE ===== */
+draw();load();setInterval(load,10000);
 </script>
 </body>
 </html>
