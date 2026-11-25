@@ -55,7 +55,7 @@ let W=[];       // talleres
 let me=null;    // alumno con sesión: {c, nip, p: perfil, mis: inscripciones}
 const staff={}; // sesión de cada rol de personal: {clave, t, data}
 const S={role:"alumno",view:"catalog",type:"Todos",slot:"",q:"",sq:"",wf:"",open:true,goal:50,school:"",
- pick:null,after:"catalog",err:{},f:{hrs:"1"},att:{},done:null,cert:null,expMsg:null,ready:false,fail:false,wait:false};
+ pick:null,after:"catalog",err:{},f:{hrs:"1"},att:{},done:null,cert:null,expMsg:null,newNip:"",ready:false,fail:false,wait:false};
 
 /* ===== 3. UTILIDADES ===== */
 const $=s=>document.querySelector(s);
@@ -90,6 +90,7 @@ async function load(){
 /* ===== 5. VISTAS DEL ALUMNO ===== */
 function student(){switch(S.view){
  case"login":return login();
+ case"recover":return recover();
  case"form":if(me)return enroll();break;
  case"done":if(me)return receipt();break;
  case"mine":if(me)return mine();break;
@@ -110,7 +111,11 @@ function catalog(){
   return card(`<b>${esc(w.n)}</b> <span class="mut">· ${esc(w.t)}</span><div class="mut">${esc(w.h)}</div><div class="bar"><i style="width:${pct(w.ins,w.c)}%"></i></div><div class="mut">${w.ins} de ${w.c} lugares</div><p><span class="tag ${k}">${tx}</span></p><button class="btn" data-a="pick" data-v="${w.id}"${!S.open||k==="lleno"||ya?" disabled":""}>${ya?"Ya inscrito":"Inscribirme"}</button>`)}).join("")||card("Ningún taller cumple el filtro.")}</div>`}
 
 const back='<button class="btn sec" data-a="back">← Talleres</button>';
-function login(){return `${back}<h2 style="margin-top:12px">Entrar como alumno</h2>${card(`<p class="mut">Usa tu número de control y el NIP que te dio Extraescolares.</p>${fld("lc","Número de control","text","8 dígitos","username")}${fld("ln","NIP","password","","current-password")}<p><button class="btn" data-enter data-a="login">Entrar</button></p>`)}`}
+function login(){return `${back}<h2 style="margin-top:12px">Entrar como alumno</h2>${card(`<p class="mut">Usa tu número de control y tu NIP.</p>${fld("lc","Número de control","text","8 dígitos","username")}${fld("ln","NIP","password","","current-password")}<p class="row"><button class="btn" data-enter data-a="login">Entrar</button><button class="btn sec" data-a="gorecover">¿Olvidaste tu NIP?</button></p>`)}`}
+
+function recover(){return `<button class="btn sec" data-a="gologin">← Volver a entrar</button><h2 style="margin-top:12px">Recuperar NIP</h2>${card(S.newNip
+ ?`<div class="note">Tu NIP nuevo es <b style="font-size:22px">${esc(S.newNip)}</b>. Anótalo: ya no se mostrará de nuevo.</div><button class="btn" data-a="gologin">Ir a entrar</button>`
+ :`<p class="mut">Escribe tu número de control y el teléfono que registraste al inscribirte. Si coinciden, se genera un NIP nuevo.</p>${fld("rc","Número de control","text","8 dígitos","username")}${fld("rt","Teléfono registrado","tel","10 dígitos","tel")}<p><button class="btn" data-enter data-a="recover">Recuperar NIP</button></p>`)}`}
 
 const expBlock=()=>`<h3>Expediente médico (opcional)</h3><p class="mut">Escribe el número que te dieron en Servicios Médicos. Tu entrenador y la jefatura verán solo lo necesario para cuidarte.</p>${fld("exp","Número de expediente","text","Ej.: EXP-0001","off")}<p><button class="btn sec" data-a="verify">Verificar expediente</button></p>${S.expMsg?`<div class="note${S.expMsg.ok?"":" bad"}">${esc(S.expMsg.msg)}</div>`:""}`;
 
@@ -188,6 +193,8 @@ async function act(a,v){switch(a){
  case"pick":S.pick=+v;S.err={};if(me){resetForm();S.view="form"}else Object.assign(S,{after:"form",view:"login",f:{}});break;
  case"mine":S.err={};if(!me){Object.assign(S,{after:"mine",view:"login",f:{}});break}
   {const r=await call("login",{c:me.c,nip:me.nip},"Cargando");if(r.ok){me.p=r.perfil;me.mis=r.mis}resetForm();S.view="mine"}break;
+ case"gorecover":Object.assign(S,{view:"recover",err:{},f:{},newNip:""});break;
+ case"recover":return doRecover();
  case"login":return doLogin();
  case"verify":return doVerify();
  case"send":return doSend();
@@ -209,8 +216,13 @@ function resetForm(){const p=me.p;S.f={tel:p.tel||"",sem:p.sem||"",x:p.x||"",exp
 async function doLogin(){const c=(S.f.lc||"").trim(),nip=(S.f.ln||"").trim();
  S.err={};if(!/^\d{8}$/.test(c))S.err.lc="Escribe tu número de control (8 dígitos).";if(!nip)S.err.ln="Escribe tu NIP.";
  if(Object.keys(S.err).length)return draw();
- const r=await call("login",{c,nip},"Verificando");if(!r.ok){S.err={ln:r.msg||"No se pudo entrar."};return draw()}
+ const r=await call("login",{c,nip},"Verificando");if(!r.ok){S.err={[r.field||"ln"]:r.msg||"No se pudo entrar."};return draw()}
  me={c,nip,p:r.perfil,mis:r.mis};resetForm();S.view=S.after==="catalog"?"catalog":S.after==="mine"?"mine":"form";draw()}
+async function doRecover(){const c=(S.f.rc||"").trim(),tel=(S.f.rt||"").trim();S.err={};
+ if(!/^\d{8}$/.test(c))S.err.rc="Escribe tu número de control (8 dígitos).";if(!phoneOk(tel))S.err.rt="Escribe tu teléfono a 10 dígitos.";
+ if(Object.keys(S.err).length)return draw();
+ const r=await call("nip",{c,tel},"Verificando");if(!r.ok){S.err={[r.field||"rt"]:r.msg};return draw()}
+ S.newNip=r.nip;draw()}
 async function doVerify(){const exp=(S.f.exp||"").trim();
  if(!exp)S.expMsg={ok:false,msg:"Escribe tu número de expediente."};
  else{const r=await call("verexp",{c:me.c,nip:me.nip,exp},"Verificando");S.expMsg=r.ok?{ok:true,msg:`✔ Expediente ${r.exp.folio} verificado: ${r.exp.n}.`}:{ok:false,msg:r.msg}}
