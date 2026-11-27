@@ -24,11 +24,11 @@ function catalog(){
   return card(`<b>${esc(w.n)}</b> <span class="mut">· ${esc(w.t)}</span><div class="mut">${esc(w.h)}</div><div class="bar"><i style="width:${pct(w.ins,w.c)}%"></i></div><div class="mut">${w.ins} de ${w.c} lugares</div><p><span class="tag ${k}">${tx}</span></p><button class="btn" data-a="pick" data-v="${w.id}"${!S.open||k==="lleno"||ya?" disabled":""}>${ya?"Ya inscrito":"Inscribirme"}</button>`)}).join("")||card("Ningún taller cumple el filtro.")}</div>`}
 
 const back='<button class="btn sec" data-a="back">← Talleres</button>';
-function login(){return `${back}<h2 style="margin-top:12px">Entrar como alumno</h2>${card(`<p class="mut">Usa tu número de control y tu NIP.</p>${fld("lc","Número de control","text","8 dígitos","username")}${fld("ln","NIP","password","","current-password")}<p class="row"><button class="btn" data-enter data-a="login">Entrar</button><button class="btn sec" data-a="gorecover">Solicitar NIP</button></p>`)}`}
+function login(){return `${back}<h2 style="margin-top:12px">Entrar como alumno</h2>${card(`<p class="mut">Usa tu número de control y tu NIP.</p>${fld("lc","Número de control","text","8 dígitos","username")}${fld("ln","NIP","password","","current-password")}<p class="row"><button class="btn" data-enter data-a="login">Entrar</button><button class="btn sec" data-a="gorecover">Recuperar NIP</button></p>`)}`}
 
-function recover(){return `<button class="btn sec" data-a="gologin">← Volver a entrar</button><h2 style="margin-top:12px">Solicitar NIP</h2>${card(S.nipMsg
- ?`<div class="note">${esc(S.nipMsg)}</div><button class="btn" data-a="gologin">Volver a entrar</button>`
- :`<p class="mut">El NIP lo asigna la institución: esta solicitud no lo genera ni lo muestra. Escribe tu número de control para registrarla.</p>${fld("rc","Número de control","text","8 dígitos","username")}<p><button class="btn" data-enter data-a="recover">Solicitar NIP</button></p>`)}`}
+function recover(){return `<button class="btn sec" data-a="gologin">← Volver a entrar</button><h2 style="margin-top:12px">Recuperar NIP</h2>${card(S.nipMsg
+ ?`<div class="note">Tu NIP es <b style="font-size:22px">${esc(S.nipMsg)}</b>. Anótalo y no lo compartas.</div><button class="btn" data-a="gologin">Ir a entrar</button>`
+ :`<p class="mut">Escribe tu número de control y el teléfono que registraste al inscribirte. Si coinciden, se te muestra tu NIP.</p>${fld("rc","Número de control","text","8 dígitos","username")}${fld("rt","Teléfono registrado","tel","10 dígitos","tel")}<p><button class="btn" data-enter data-a="recover">Mostrar mi NIP</button></p>`)}`}
 
 const expBlock=()=>`<h3>Expediente médico (opcional)</h3>
  <details class="note"><summary><b>¿Qué es el expediente médico?</b></summary><p>Es el registro de tu salud que abre Servicios Médicos de la escuela (enfermedades, alergias, medicamentos) para que te cuiden si te sientes mal durante un taller. Si todavía no tienes uno, déjalo en blanco: puedes agregarlo después.</p></details>
@@ -36,7 +36,7 @@ const expBlock=()=>`<h3>Expediente médico (opcional)</h3>
  <label><input type="checkbox" data-chk="aut"${S.f.aut?" checked":""}> Acepto el aviso de privacidad</label>${S.err.aut?`<div class="err">${esc(S.err.aut)}</div>`:""}
  ${fld("exp","Número de expediente (el folio que te dieron en Servicios Médicos)","text","Ej.: EXP-0001","off")}
  <p><button class="btn sec" data-a="verify">Comprobar mi número de expediente</button></p>${S.expMsg?`<div class="note${S.expMsg.ok?"":" bad"}">${esc(S.expMsg.msg)}</div>`:""}
- <label>O sube una foto o PDF de tu expediente (máx. 2 MB)<input type="file" data-file accept="application/pdf,image/jpeg,image/png"></label>
+ ${S.file?`<p class="row"><span>📄 <b>${esc(S.file.name)}</b></span><button class="btn sec" data-a="rmfile">Quitar archivo</button></p>`:`<label>O sube una foto o PDF de tu expediente (máx. 2 MB)<input type="file" data-file accept="application/pdf,image/jpeg,image/png"></label>`}
  <p><button class="btn sec" data-a="doc">Leer y comprobar documento</button></p>${S.docMsg?`<div class="note${S.docMsg.ok?"":" bad"}">${esc(S.docMsg.msg)}</div>`:""}`;
 
 function enroll(){const w=shop(S.pick),p=me.p,other=me.mis.some(m=>m.t!==S.pick);

@@ -15,6 +15,7 @@ async function act(a,v){switch(a){
  case"login":return doLogin();
  case"verify":return doVerify();
  case"doc":return doDoc();
+ case"rmfile":S.file=null;S.docMsg=null;break;
  case"send":return doSend();
  case"change":return doChange();
  case"saveContact":return doContact();
@@ -36,18 +37,19 @@ async function doLogin(){const c=(S.f.lc||"").trim(),nip=(S.f.ln||"").trim();
  if(Object.keys(S.err).length)return draw();
  const r=await call("login",{c,nip},"Verificando");if(!r.ok){S.err={[r.field||"ln"]:r.msg||"No se pudo entrar."};return draw()}
  me={c,nip,p:r.perfil,mis:r.mis};resetForm();S.view=S.after==="catalog"?"catalog":S.after==="mine"?"mine":"form";draw()}
-async function doRecover(){const c=(S.f.rc||"").trim();S.err={};
- if(!/^\d{8}$/.test(c)){S.err.rc="Escribe tu número de control (8 dígitos).";return draw()}
- const r=await call("solnip",{c},"Enviando");if(!r.ok){S.err={[r.field||"rc"]:r.msg};return draw()}
- S.nipMsg=r.msg;draw()}
+async function doRecover(){const c=(S.f.rc||"").trim(),tel=(S.f.rt||"").trim();S.err={};
+ if(!/^\d{8}$/.test(c))S.err.rc="Escribe tu número de control (8 dígitos).";if(!phoneOk(tel))S.err.rt="Escribe tu teléfono a 10 dígitos.";
+ if(Object.keys(S.err).length)return draw();
+ const r=await call("nip",{c,tel},"Buscando");if(!r.ok){S.err={[r.field||"rt"]:r.msg};return draw()}
+ S.nipMsg=r.nip;draw()}
 function readFile(f){S.file=null;S.docMsg=null;if(!f)return;
  if(f.size>2*1024*1024){S.docMsg={ok:false,msg:"El archivo pesa más de 2 MB."};return draw()}
- const fr=new FileReader();fr.onload=()=>{S.file={mime:f.type,b64:String(fr.result).split(",")[1]};S.docMsg={ok:true,msg:"Archivo listo: "+f.name+". Presiona «Leer y comprobar documento»."};draw()};fr.readAsDataURL(f)}
+ const fr=new FileReader();fr.onload=()=>{S.file={name:f.name,mime:f.type||(/\.pdf$/i.test(f.name)?"application/pdf":"image/jpeg"),b64:String(fr.result).split(",")[1]};S.docMsg={ok:true,msg:"Archivo listo: "+f.name+". Presiona «Leer y comprobar documento»."};draw()};fr.readAsDataURL(f)}
 async function doDoc(){
  if(!S.file){S.docMsg={ok:false,msg:"Primero elige un archivo."};return draw()}
  if(!S.f.aut){S.err.aut="Acepta el aviso de privacidad para subir tu documento.";return draw()}
  const r=await call("docexp",{c:me.c,nip:me.nip,mime:S.file.mime,datos:S.file.b64,aut:true},"Leyendo documento");
- if(!r.ok){if(r.field==="aut")S.err.aut=r.msg;S.docMsg={ok:false,msg:r.msg};return draw()}
+ if(!r.ok){if(r.field==="aut")S.err.aut=r.msg;S.docMsg={ok:false,msg:r.msg+" (Tu archivo sigue seleccionado: puedes reintentar o quitarlo.)"};return draw()}
  if(r.validado){S.f.exp=r.folio;me.p.exp=r.folio;me.p.aviso=true;S.docMsg={ok:true,msg:`✔ ${r.resultado}. Tu expediente ${r.folio} quedó vinculado; no necesitas hacer nada más.`}}
  else S.docMsg={ok:false,msg:"Tu documento quedó pendiente de revisión manual por Servicios Médicos. Motivo: "+r.motivos.join(" ")}
  S.file=null;draw()}
